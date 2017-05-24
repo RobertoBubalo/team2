@@ -1,1 +1,1 @@
-ouizuohuoipooztfuzgiuihojpokšplðšxrztfuzgiuihojpokšpluizuoihjokpolšè
+nesto pametno
