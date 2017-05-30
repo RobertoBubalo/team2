@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JustDoIT</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="page">
+
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+                 </button>
+                    <a class="navbar-brand" href="#">JustDoIT</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">To-Do</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
+                        <li><a href="#" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-user"></span> Sign Up</a> </li>
+                        <li><a href="#" style="display:none"><span class="glyphicon glyphicon-user"></span> Profil</a> </li>
+                        <li><a href="#" style="display:none"><span class="glyphicon glyphicon-log-out"></span> Log-out</a> </li>
+                        <li><a href="#" style="display:none" href="#" data-toggle="modal" data-target="#myModal3"><span class="glyphicon glyphicon-edit"></span> Update</a> </li>
+                    </ul>
+
+                </div>
+
+
+
+            </div>
+        </nav>
+        <!--Modal update-->
+
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Update account</h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <div class="input-group pb-modalreglog-input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="email" class="form-control" name="email2" id="email2" placeholder="Email">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Old password</label>
+                                <div class="input-group pb-modalreglog-input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" class="form-control" name="pws" id="pws" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">New password</label>
+                                <div class="input-group pb-modalreglog-input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" class="form-control" name="pws" id="pws" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Comfirm new password</label>
+                                <div class="input-group pb-modalreglog-input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" class="form-control" name="pws" id="pws" placeholder="Password">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="modal-footer">
+
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="update" id="Update" class="btn btn-primary">Update</button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal Login-->
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title text-center" id="myModalLabel">Login</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <div class="input-group pb-modalreglog-input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        <input type="email" class="form-control" name="email2" id="email2" placeholder="Email">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <div class="input-group pb-modalreglog-input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                        <input type="password" class="form-control" name="pws" id="pws" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <a href="#">Forgot your password?</a><br>
+                                </div>
+                                <div class="form-group">
+                                    If you dont have an account you can <a data-toggle="modal" data-target="#myModal2" data-dismiss="modal"> register here</a>
+                                </div>
+
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <div style="float:left">
+                                Sign in with <a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">
+                                        Google</a></div>
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="Login" id="Login" class="btn btn-primary">Log in</button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal Registracija-->
+
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form class="pb-modalreglog-form-reg" action="" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title text-center"  id="myModalLabel">Registration</h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <div class="input-group pb-modalreglog-input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required="required" title="Incorret e-mail format">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <div class="input-group pb-modalreglog-input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="text" class="form-control" name="username" id="username" placeholder="Username" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$" type="text" required="required" title="Username can only contain lowercase, uppercase letters and numbers. Minimum 5 characters. ">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <div class="input-group pb-modalreglog-input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" class="form-control" name="inputPws" id="inputPws" placeholder="Password" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$" required="required" title="Password can only contain lowercase, uppercase letters and numbers. Minimum 5 characters.">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmpassword">Confirm password</label>
+                                <div class="input-group pb-modalreglog-input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" class="form-control" name="inputConfirmPws" id="inputConfirmPws" placeholder="Confirm Password" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$" required="required" title="Password can only contain lowercase, uppercase letters and numbers. Minimum 5 characters.">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="checkbox" id="ch" name="chs"> I agree with <a href="#">terms and conditions.</a>
+                            </div>
+                            <div class="form-group">
+                                    Already have an account? <a data-toggle="modal" data-target="#myModal" data-dismiss="modal"> Login here</a>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <div style="float:left">
+                                Sign in with <a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">
+                                        Google</a></div>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="reg" id="reg" class="btn btn-primary">Sign up</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!--naslovslika-->
+        <div class="jumbotron" id="box-wrapper">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 wow bounceInLeft">
+                        <h1>To do list</h1>
+                        <p> The best app of all time. Never forget about anything ever again. This app will change your life forever. Now available on your phone, pc or tablet.</p>
+                        <button class="btn btn-lg btn-primary prvib">Download App</button>
+                        <button class="btn btn-lg btn-success plavi">Download Extension</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!--prvi paragraf-->
+        <div class="prvi">
+            <div class="container">
+
+                <div class="row" style="margin-bottom:60px">
+                    <div class="col-md-6 col-md-offset-3 text-center">
+                        <h2>Simple yet elegant</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 text-center">
+                        <div class="funkcije">
+                            <span class="icon">
+                        <i class="glyphicon glyphicon-globe" ></i>
+                    </span>
+                            <div class="desc">
+                                <h3>Plan for everything</h3>
+                                <p>Make your life easier with this simple app. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center">
+                        <div class="funkcije">
+                            <span class="icon">
+                        <i class="glyphicon glyphicon-ok" ></i>
+                    </span>
+                            <div class="desc">
+                                <h3>Due date</h3>
+                                <p>Organize your life once and for all.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center">
+                        <div class="funkcije">
+                            <span class="icon">
+                        <i class="glyphicon glyphicon-home" ></i>
+                    </span>
+                            <div class="desc">
+                                <h3>History</h3>
+                                <p>See what tasks you have already done. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center">
+                        <div class="funkcije">
+                            <span class="icon">
+                        <i class="glyphicon glyphicon-file" ></i>
+                    </span>
+                            <div class="desc">
+                                <h3>Categories</h3>
+                                <p>Make your life easier with this app.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center">
+                        <div class="funkcije">
+                            <span class="icon">
+                        <i class="glyphicon glyphicon-list-alt" ></i>
+                    </span>
+                            <div class="desc">
+                                <h3>Maps</h3>
+                                <p>Make your life easier with this app.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center">
+                        <div class="funkcije">
+                            <span class="icon">
+                        <i class="glyphicon glyphicon-globe" ></i>
+                    </span>
+                            <div class="desc">
+                                <h3>Themes</h3>
+                                <p>Make your life easier with this app.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center">
+                        <div class="funkcije">
+                            <span class="icon">
+                        <i class="glyphicon glyphicon-globe" ></i>
+                    </span>
+                            <div class="desc">
+                                <h3>Sign up</h3>
+                                <p>Make your life easier with this app.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center">
+                        <div class="funkcije">
+                            <span class="icon">
+                        <i class="glyphicon glyphicon-globe" ></i>
+                    </span>
+                            <div class="desc">
+                                <h3>Everywhere</h3>
+                                <p>Make your life easier with this app.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--drugi paragraf-->
+        <div class="drugi" style="background-color:white;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5 text-center">
+                        <h2>Get started its free</h2>
+                    </div>
+                    <div class="cold-sm-5 text-center botuni">
+                        <button class="loginBtn facebook"> Login with Facebook
+                        </button>
+
+                        <button class="loginBtn google">Login with Google
+                        </button>
+                         <button class="login2" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-user"></span> Sign Up</button>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--
+             <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="tcb-simple-carousel">
+                    <div id="myCarousel" class="carousel slide">         
+                        <div class="carousel-inner">           
+                            <div class="item active">
+                                <blockquote>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+                                </blockquote>
+                            </div>
+                            <div class="item">
+                                <blockquote>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+                                </blockquote>
+                             </div>  
+                            <div class="item">
+                                <blockquote>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+                                </blockquote>
+                            </div>                                                                                   
+                        </div> 
+                       <div class="carousel-controls">
+                          <a class="carousel-control left" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-user"></span></a>
+                          <a class="carousel-control right" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-user"></span></a>
+                      </div>               
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+    </div>    -->
+        
+        
+        <div id="team" class="team">
+    <div class="container">
+				<div class="row text-center">
+					<div class="col-sm-8 col-sm-offset-2">
+						<h2 class="title-one">Meet The Team</h2>
+						<p>The best team out there.</p>
+					</div>
+				</div>
+				
+					
+				
+							<div class="col-sm-6 col-md-3">
+								<div class="single-team">
+									<img src="slika1.jpg" alt="team member" />
+									<h4>Jure Juric</h4>
+									<h5>sef</h5>
+									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
+									
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-3">
+								<div class="single-team">
+									<img src="slika1.jpg" alt="team member" />
+									<h4>Pero Peric</h4>
+									<h5>sef</h5>
+									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
+									
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-3">
+								<div class="single-team">
+									<img src="slika1.jpg"alt="team member" />
+									<h4>Ivo Ivic</h4>
+									<h5>sef</h5>
+									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
+								
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-3" >
+								<div class="single-team">
+									<img src="slika1.jpg" alt="team member" />
+									<h4>Duro DUric</h4>
+									<h5>sef</h5>
+									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismodsed diam nonummy</p>
+					
+								</div>
+							</div>
+						</div>
+				
+			
+
+</div>
+      
+     
+       
+
+        
+    </div>
+</body>
+
+</html>
