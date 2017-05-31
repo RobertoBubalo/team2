@@ -41,8 +41,19 @@ function noviObjekt(){
 }
         
         var tmpObjekt= new zadatak(brojObjekata,text,datum,odabir);
+        
+        
+        if(odabir=="General"){ispisGeneral();}
+        else if(odabir=="Private"){ispisPrivate();}
+        else if(odabir=="Work"){ispisWork();}
+        else if(odabir=="Shopping"){ispisShopping();}
         ispis(tmpObjekt);
+        
         polje[brojObjekata]=tmpObjekt;
+        
+        brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje);
+        ispisBrojaca();
+        
         brojObjekata++;
     
         spremiULS(tmpObjekt);
@@ -129,13 +140,14 @@ function loadIzLS(){
    for(var i=0;i<JSON.parse(localStorage.getItem("brojObjekata"));i++) {
        polje[i]=JSON.parse(localStorage.getItem(brojObjekata));
     
-       brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu);
+       brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje);
     if(polje[brojObjekata].mapa=="General"&&polje[brojObjekata].zaArhivu==false){
         ispis(polje[brojObjekata]);
     }
        
        brojObjekata++
    }
+    ispisBrojaca();
 }
 
 
@@ -154,7 +166,16 @@ function removeZadatak(sender){
     document.getElementById(idZaRemove.getAttribute('id')).style.display='none';
     polje[idic].zaArhivu=true;
     
+    if(polje[idic].mapa=="General"){generalX--;}
+    if(polje[idic].mapa=="Private"){privateX--;}
+    if(polje[idic].mapa=="Work"){workX--;}
+    if(polje[idic].mapa=="Shopping"){shoppingX--;} archiveX++;
+    
+    ispisBrojaca();
+    
     localStorage.setItem(idic, JSON.stringify(polje[idic]));
+    
+    
     
   
 }
@@ -167,6 +188,17 @@ function stanje(sender){
     if(polje[idDiv].stanje==false){
         polje[idDiv].stanje=true;
         document.getElementById(idDiv).style.display= 'none';
+        
+        if(polje[idDiv].mapa=="General"){generalX--;}
+        if(polje[idDiv].mapa=="Private"){privateX--;}
+        if(polje[idDiv].mapa=="Work"){workX--;}
+        if(polje[idDiv].mapa=="Shopping"){shoppingX--;} checkedX++;
+    
+        ispisBrojaca();
+        
+        
+        
+        
     }else{
         polje[idDiv].stanje=false;
         //document.getElementById(idDiv).style.display='unset';
@@ -221,6 +253,8 @@ function spremiNoviDatum(sender){
 
 function ispisGeneral(){
     $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeG').style.color="blue";
     
     for(var i=0;i<brojObjekata;i++){
         if(polje[i].mapa=="General"&&polje[i].zaArhivu==false){
@@ -236,6 +270,8 @@ function ispisGeneral(){
 
 function ispisPrivate(){
     $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeP').style.color="blue";
     
     for(var i=0;i<brojObjekata;i++){
         if(polje[i].mapa=="Private"&&polje[i].zaArhivu==false){
@@ -249,7 +285,8 @@ function ispisPrivate(){
 
 function ispisWork(){
     $( ".todoes" ).remove();
-    
+    activeDefColor();
+    document.getElementById('activeW').style.color="blue";
     for(var i=0;i<brojObjekata;i++){
         if(polje[i].mapa=="Work"&&polje[i].zaArhivu==false){
             ispis(polje[i]);
@@ -262,7 +299,8 @@ function ispisWork(){
 
 function ispisShopping(){
     $( ".todoes" ).remove();
-    
+    activeDefColor();
+    document.getElementById('activeS').style.color="blue";
     for(var i=0;i<brojObjekata;i++){
         if(polje[i].mapa=="Shopping"&&polje[i].zaArhivu==false){
             ispis(polje[i]);
@@ -271,6 +309,39 @@ function ispisShopping(){
     
     
 }
+
+function ispisArhiva(){
+    $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeA').style.color="blue";
+    
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].zaArhivu==true){
+            prikazArhive(polje[i]);
+        }
+    }
+    
+    
+}
+
+function ispisChecked(){
+    $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeC').style.color="blue";
+    
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].stanje==true&&polje[i].zaArhivu==false){
+            ispis(polje[i]);
+            document.getElementById(i).style.display="inline-flex";
+            document.getElementById(i).style.opacity=0.5;
+        }
+    }
+    
+    
+}
+
+
+
 
 //jquerry datum dropdown
 $( function() {
@@ -288,9 +359,72 @@ document.getElementById('input').addEventListener("keydown",function (g){
         }
     });
 
-function brojacTodo(mapica,arhiva){
-    if(mapica=="General"&& arhiva==false){
+function brojacTodo(mapica,arhiva,chekirano){
+    if(mapica=="General"&& arhiva==false&& chekirano==false){
         generalX++;
-        console.log(generalX);
+    }else if(mapica=="Private"&& arhiva==false&& chekirano==false){
+        privateX++;
+    }else if(mapica=="Work"&& arhiva==false&& chekirano==false){
+        workX++;
+    }else if(mapica=="Shopping"&& arhiva==false&& chekirano==false){
+        shoppingX++;
+    }else if(arhiva==true&& chekirano==false){
+        archiveX++;
+    }else if(arhiva==false&& chekirano==true){
+        checkedX++;
     }
+    
+}
+
+
+function ispisBrojaca(){
+    document.getElementById('general').innerHTML= generalX;
+    document.getElementById('private').innerHTML=privateX;
+    document.getElementById('work').innerHTML=workX;
+    document.getElementById('shopping').innerHTML=shoppingX;
+    document.getElementById('archive').innerHTML=archiveX;
+    document.getElementById('checked').innerHTML=checkedX;
+    
+}
+
+
+function activeDefColor(){
+    document.getElementById('activeG').style.color="black";
+    document.getElementById('activeP').style.color="black";
+    document.getElementById('activeW').style.color="black";
+    document.getElementById('activeS').style.color="black";
+    document.getElementById('activeA').style.color="black";
+    document.getElementById('activeC').style.color="black";
+}
+
+function prikazArhive(tmpObjekt){
+    var forma=document.createElement("div");//kreira <div>
+        forma.setAttribute("id", tmpObjekt.redniBroj-1); //<div id="">
+        forma.setAttribute("class", "todoes");     
+
+    var noviElement = document.createElement('input'); 
+    
+    noviElement.setAttribute("class","opisi");
+    noviElement.setAttribute("value",tmpObjekt.opis);
+
+    noviElement.addEventListener("keydown",function (g){
+        if (g.keyCode===13){
+            izmjenaVrijednosti(this);
+        }
+                                });
+    
+    noviElement.setAttribute("type", "text" );
+    forma.appendChild(noviElement);
+    forma.appendChild(ispisDatum(tmpObjekt));
+   
+    document.getElementById('lista').appendChild(forma);       
+    
+    $( function() {
+    $( "#inputDatum" ).datepicker();
+    $(".inputDatumi").datepicker({
+        onClose: function(dateText,inst){
+           spremiNoviDatum(this); 
+        } 
+    });
+  } );
 }
