@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <a href="#">Forgot your password?</a><br>
+                                    <a data-toggle="modal" data-target="#myModal5" data-dismiss="modal"> Forgot password ?</a>
                                 </div>
                                 <div class="form-group">
                                     If you dont have an account you can <a data-toggle="modal" data-target="#myModal2" data-dismiss="modal"> register here</a>
@@ -177,7 +177,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title text-center"  id="myModalLabel">Registration</h4>
+                            <h4 class="modal-title text-center" id="myModalLabel">Registration</h4>
                         </div>
                         <div class="modal-body">
 
@@ -215,7 +215,7 @@
                                 <input type="checkbox" id="ch" name="chs"> I agree with <a href="#">terms and conditions.</a>
                             </div>
                             <div class="form-group">
-                                    Already have an account? <a data-toggle="modal" data-target="#myModal" data-dismiss="modal"> Login here</a>
+                                Already have an account? <a data-toggle="modal" data-target="#myModal" data-dismiss="modal"> Login here</a>
                             </div>
 
                         </div>
@@ -232,6 +232,48 @@
                 </div>
             </div>
 
+        </div>
+        <!--modal forgot password-->
+
+        <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title text-center" id="myModalLabel">Neki tekst</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <div class="input-group pb-modalreglog-input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        <input type="email" class="form-control" name="email2" id="email2" placeholder="Email">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    Neki tekst 2 ?
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="Submit" id="Submit" class="btn btn-primary">Submit</button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
 
 
@@ -366,8 +408,8 @@
 
                         <button class="loginBtn google">Login with Google
                         </button>
-                         <button class="login2" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-user"></span> Sign Up</button>
-                        
+                        <button class="login2" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-user"></span> Sign Up</button>
+
                     </div>
 
                 </div>
@@ -409,65 +451,65 @@
         </div>
   
     </div>    -->
-        
-        
+
+
         <div id="team" class="team">
-    <div class="container">
-				<div class="row text-center">
-					<div class="col-sm-8 col-sm-offset-2">
-						<h2 class="title-one">Meet The Team</h2>
-						<p>The best team out there.</p>
-					</div>
-				</div>
-				
-					
-				
-							<div class="col-sm-6 col-md-3">
-								<div class="single-team">
-									<img src="slika1.jpg" alt="team member" />
-									<h4>Jure Juric</h4>
-									<h5>sef</h5>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
-									
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-3">
-								<div class="single-team">
-									<img src="slika1.jpg" alt="team member" />
-									<h4>Pero Peric</h4>
-									<h5>sef</h5>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
-									
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-3">
-								<div class="single-team">
-									<img src="slika1.jpg"alt="team member" />
-									<h4>Ivo Ivic</h4>
-									<h5>sef</h5>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
-								
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-3" >
-								<div class="single-team">
-									<img src="slika1.jpg" alt="team member" />
-									<h4>Duro DUric</h4>
-									<h5>sef</h5>
-									<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismodsed diam nonummy</p>
-					
-								</div>
-							</div>
-						</div>
-				
-			
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <h2 class="title-one">Meet The Team</h2>
+                        <p>The best team out there.</p>
+                    </div>
+                </div>
 
-</div>
-      
-     
-       
 
-        
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="single-team">
+                        <img src="slika1.jpg" alt="team member" />
+                        <h4>Jure Juric</h4>
+                        <h5>sef</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="single-team">
+                        <img src="slika1.jpg" alt="team member" />
+                        <h4>Pero Peric</h4>
+                        <h5>sef</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="single-team">
+                        <img src="slika1.jpg" alt="team member" />
+                        <h4>Ivo Ivic</h4>
+                        <h5>sef</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="single-team">
+                        <img src="slika1.jpg" alt="team member" />
+                        <h4>Duro DUric</h4>
+                        <h5>sef</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismodsed diam nonummy</p>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+
+
     </div>
 </body>
 
