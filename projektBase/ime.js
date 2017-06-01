@@ -1,19 +1,25 @@
 brojObjekata=0;
-clickCounterArhiva=0; clickCounterChecked=0;
 polje=[];
+
+var generalX=0;
+var privateX=0;
+var workX=0;
+var shoppingX=0;
+var archiveX=0;
+var checkedX=0;
+
 loadIzLS();
 
 //stvaranje objekta
-function zadatak(rb,text,datum){
+function zadatak(rb,text,datum,odabir){
     this.redniBroj=rb+1;
     this.opis=text;
     this.dueDate=datum;  
     this.stanje=false;
     this.zaArhivu=false;
+    this.mapa=odabir;
     
-    this.izmjenaOpisa = function(tmp){
-        this.opis=tmp;
-    }
+    
 }
 
 //uzima vrijednost iz unosa opisa i datuma i salje u funkciju ispis,dodaje u polje objekata, i sprema u LocalStorage
@@ -25,47 +31,57 @@ function noviObjekt(){
         
     }else{
         var datum= document.getElementById('inputDatum').value;
-          /*  if(datum==""||datum==null||datum==undefined||datum==" "){
-                datum="Date not set";
-            }*/
         document.getElementById('inputDatum').value="";
-        var tmpObjekt= new zadatak(brojObjekata,text,datum);
+        
+        //getanje izbora za upis u mapu
+        var izbor=document.getElementsByClassName("filter-option pull-left");
+        for (var i = 0; i < izbor.length; i++) {
+        var odabir = izbor[i].innerText;
+  
+}
+        
+        var tmpObjekt= new zadatak(brojObjekata,text,datum,odabir);
+        
+        
+        if(odabir=="General"){ispisGeneral();}
+        else if(odabir=="Private"){ispisPrivate();}
+        else if(odabir=="Work"){ispisWork();}
+        else if(odabir=="Shopping"){ispisShopping();}
         ispis(tmpObjekt);
+        
         polje[brojObjekata]=tmpObjekt;
+        
+        brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje);
+        ispisBrojaca();
+        
         brojObjekata++;
     
         spremiULS(tmpObjekt);
     }
 }
 
-document.getElementById('input').addEventListener("keydown",function (g){
-        if (g.keyCode===13){
-            noviObjekt();
-        }
-    });
-
 
 function ispis(tmpObjekt){
-   if(tmpObjekt.zaArhivu==false){
     
-        var forma=document.createElement("div");//kreira <div>
-            forma.setAttribute("id", brojObjekata); //<div id="">
+   
+    
+    var forma=document.createElement("div");//kreira <div>
+        forma.setAttribute("id", tmpObjekt.redniBroj-1); //<div id="">
+        forma.setAttribute("class", "todoes");     
 
-        var noviElement = document.createElement('input'); 
-        //var textZaIspis=document.createTextNode(tmpObjekt.opis); //u str
-        noviElement.setAttribute("class","opisi");
-        noviElement.setAttribute("value",tmpObjekt.opis);
+    var noviElement = document.createElement('input'); 
+    //var textZaIspis=document.createTextNode(tmpObjekt.opis); //u str
+    noviElement.setAttribute("class","opisi");
+    noviElement.setAttribute("value",tmpObjekt.opis);
 
-           //ISTRAZITI MALO - TRIGGER ZA ENTER // ne radi sa posebnom funkcijom osim inline ovako ... 
-        noviElement.addEventListener("keydown",function (g){
-            if (g.keyCode===13){
-                izmjenaVrijednosti(this);
-            }
-    });
+       //ISTRAZITI MALO - TRIGGER ZA ENTER // ne radi sa posebnom funkcijom osim inline ovako ... 
+    noviElement.addEventListener("keydown",function (g){
+        if (g.keyCode===13){
+            izmjenaVrijednosti(this);
+        }
+                                });
     
     noviElement.setAttribute("type", "text" );
-    
-    
     
     
        
@@ -97,15 +113,9 @@ function ispis(tmpObjekt){
        
        //checkbox stanje, opacity mjenja ili striketrought bla bla 
      if(tmpObjekt.stanje==true){
-        document.getElementById(brojObjekata).style.display= 'none';
-        //document.getElementById(brojObjekata).style.text-decorit..
-     }else{
-        //document.getElementById(brojObjekata).style.display='unset';
-     }
+        document.getElementById(tmpObjekt.redniBroj-1).style.display= 'none';
+         }
        
-   }
-    
-    
     
     $( function() {
     $( "#inputDatum" ).datepicker();
@@ -130,17 +140,23 @@ function loadIzLS(){
    for(var i=0;i<JSON.parse(localStorage.getItem("brojObjekata"));i++) {
        polje[i]=JSON.parse(localStorage.getItem(brojObjekata));
     
-       ispis(polje[brojObjekata]);
-    
+       brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje);
+    if(polje[brojObjekata].mapa=="General"&&polje[brojObjekata].zaArhivu==false){
+        ispis(polje[brojObjekata]);
+    }
+       
        brojObjekata++
    }
+    ispisBrojaca();
 }
 
-function clearAll(){
-    localStorage.clear();
-    brojObjekata=0;
-    localStorage.setItem("brojObjekata",brojObjekata);
-}
+
+
+
+
+
+
+
 
 
 
@@ -150,16 +166,18 @@ function removeZadatak(sender){
     document.getElementById(idZaRemove.getAttribute('id')).style.display='none';
     polje[idic].zaArhivu=true;
     
+    if(polje[idic].mapa=="General"){generalX--;}
+    if(polje[idic].mapa=="Private"){privateX--;}
+    if(polje[idic].mapa=="Work"){workX--;}
+    if(polje[idic].mapa=="Shopping"){shoppingX--;} archiveX++;
+    
+    ispisBrojaca();
+    
     localStorage.setItem(idic, JSON.stringify(polje[idic]));
     
-    //NASTAVAK KAD BUDEMO RADILI ARHIVU, DA DOSLOVNO REMOVE-A IZ LS 
-    //localStorage.removeItem(idic);
-    //polje.splice(idic,1);
-    //brojObjekata--;
-    //localStorage.setItem("brojObjekata",brojObjekata);
     
     
-    
+  
 }
 
 function stanje(sender){
@@ -170,6 +188,17 @@ function stanje(sender){
     if(polje[idDiv].stanje==false){
         polje[idDiv].stanje=true;
         document.getElementById(idDiv).style.display= 'none';
+        
+        if(polje[idDiv].mapa=="General"){generalX--;}
+        if(polje[idDiv].mapa=="Private"){privateX--;}
+        if(polje[idDiv].mapa=="Work"){workX--;}
+        if(polje[idDiv].mapa=="Shopping"){shoppingX--;} checkedX++;
+    
+        ispisBrojaca();
+        
+        
+        
+        
     }else{
         polje[idDiv].stanje=false;
         //document.getElementById(idDiv).style.display='unset';
@@ -191,15 +220,18 @@ function izmjenaVrijednosti(sender){ //sprema se vrijednost u polje i u localsto
 }
 
 
-//jquerry datum dropdown
-$( function() {
-    $( "#inputDatum" ).datepicker();
-    $(".inputDatumi").datepicker({
-        onClose: function(dateText,inst){
-           spremiNoviDatum(this); 
-        } 
-    });
-  } );
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function ispisDatum(tmpObjekt){
@@ -217,83 +249,182 @@ function spremiNoviDatum(sender){
     localStorage.setItem(idDiv, JSON.stringify(polje[idDiv]));
 }
 
-function otvoriArhivu(){
+
+
+function ispisGeneral(){
+    $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeG').style.color="blue";
     
-        document.getElementById("lista").style.display="none";
-        document.getElementById("checked").style.display="none";
-        document.getElementById("arhiva").style.display="unset";
-        
-        $(".arhiva").remove();
-        
-        for(var i=0;i<brojObjekata;i++){
-            ispisArhive(polje[i]);
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].mapa=="General"&&polje[i].zaArhivu==false){
+            ispis(polje[i]);
         }
-    
-    
-}
-
-function ispisArhive(tmpObjekt){
-    
-        if(tmpObjekt.zaArhivu==true&&tmpObjekt.opis!=""){
-
-            var forma=document.createElement("div");
-                forma.setAttribute("class", "arhiva"); 
-                
-                var opisAr=document.createElement("li");
-                    opisAr.setAttribute("class","opisAr");
-                    opisAr.appendChild(document.createTextNode(tmpObjekt.opis));
-            
-                var dueDateAr=document.createElement("li");
-                    dueDateAr.setAttribute("class","dueDateAr");
-                    dueDateAr.appendChild(document.createTextNode(tmpObjekt.dueDate));
-            
-                forma.appendChild(opisAr);
-                forma.appendChild(dueDateAr);
-
-                document.getElementById('arhiva').appendChild(forma);
-
-
-       }
-}
-
-function otvoriChecked(){
-    
-        document.getElementById("lista").style.display="none";
-        document.getElementById("arhiva").style.display="none";
-        document.getElementById("checked").style.display="unset";
-        
-        $(".checked").remove();
-        for(var i=0;i<brojObjekata;i++){
-            ispisChecked(polje[i]);
-        }
-    
-}
-
-function ispisChecked(tmpObjekt){
-    if(tmpObjekt.stanje==true&&tmpObjekt.opis!=""){
-
-            var forma=document.createElement("div");
-                forma.setAttribute("class", "checked"); 
-                
-                var opisCh=document.createElement("li");
-                    opisCh.setAttribute("class","opisCh");
-                    opisCh.appendChild(document.createTextNode(tmpObjekt.opis));
-            
-                var dueDateCh=document.createElement("li");
-                    dueDateCh.setAttribute("class","dueDateCh");
-                    dueDateCh.appendChild(document.createTextNode(tmpObjekt.dueDate));
-            
-                forma.appendChild(opisCh);
-                forma.appendChild(dueDateCh);
-
-                document.getElementById('checked').appendChild(forma);
     }
+      
 }
 
-function otvoriGeneral(){
-        document.getElementById("lista").style.display="unset";
-        document.getElementById("arhiva").style.display="none";
-        document.getElementById("checked").style.display="none";
-        $(".checked").remove();
-        $(".arhiva").remove();
+
+
+
+
+function ispisPrivate(){
+    $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeP').style.color="blue";
+    
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].mapa=="Private"&&polje[i].zaArhivu==false){
+            ispis(polje[i]);
+        }
+    }
+    
+    
+}
+
+
+function ispisWork(){
+    $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeW').style.color="blue";
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].mapa=="Work"&&polje[i].zaArhivu==false){
+            ispis(polje[i]);
+        }
+    }
+    
+    
+}
+
+
+function ispisShopping(){
+    $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeS').style.color="blue";
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].mapa=="Shopping"&&polje[i].zaArhivu==false){
+            ispis(polje[i]);
+        }
+    }
+    
+    
+}
+
+function ispisArhiva(){
+    $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeA').style.color="blue";
+    
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].zaArhivu==true){
+            prikazArhive(polje[i]);
+        }
+    }
+    
+    
+}
+
+function ispisChecked(){
+    $( ".todoes" ).remove();
+    activeDefColor();
+    document.getElementById('activeC').style.color="blue";
+    
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].stanje==true&&polje[i].zaArhivu==false){
+            ispis(polje[i]);
+            document.getElementById(i).style.display="inline-flex";
+            document.getElementById(i).style.opacity=0.5;
+        }
+    }
+    
+    
+}
+
+
+
+
+//jquerry datum dropdown
+$( function() {
+    $( "#inputDatum" ).datepicker();
+    $(".inputDatumi").datepicker({
+        onClose: function(dateText,inst){
+           spremiNoviDatum(this); 
+        } 
+    });
+  } );
+
+document.getElementById('input').addEventListener("keydown",function (g){
+        if (g.keyCode===13){
+            noviObjekt();
+        }
+    });
+
+function brojacTodo(mapica,arhiva,chekirano){
+    if(mapica=="General"&& arhiva==false&& chekirano==false){
+        generalX++;
+    }else if(mapica=="Private"&& arhiva==false&& chekirano==false){
+        privateX++;
+    }else if(mapica=="Work"&& arhiva==false&& chekirano==false){
+        workX++;
+    }else if(mapica=="Shopping"&& arhiva==false&& chekirano==false){
+        shoppingX++;
+    }else if(arhiva==true&& chekirano==false){
+        archiveX++;
+    }else if(arhiva==false&& chekirano==true){
+        checkedX++;
+    }
+    
+}
+
+
+function ispisBrojaca(){
+    document.getElementById('general').innerHTML= generalX;
+    document.getElementById('private').innerHTML=privateX;
+    document.getElementById('work').innerHTML=workX;
+    document.getElementById('shopping').innerHTML=shoppingX;
+    document.getElementById('archive').innerHTML=archiveX;
+    document.getElementById('checked').innerHTML=checkedX;
+    
+}
+
+
+function activeDefColor(){
+    document.getElementById('activeG').style.color="black";
+    document.getElementById('activeP').style.color="black";
+    document.getElementById('activeW').style.color="black";
+    document.getElementById('activeS').style.color="black";
+    document.getElementById('activeA').style.color="black";
+    document.getElementById('activeC').style.color="black";
+}
+
+function prikazArhive(tmpObjekt){
+    var forma=document.createElement("div");//kreira <div>
+        forma.setAttribute("id", tmpObjekt.redniBroj-1); //<div id="">
+        forma.setAttribute("class", "todoes");     
+
+    var noviElement = document.createElement('input'); 
+    
+    noviElement.setAttribute("class","opisi");
+    noviElement.setAttribute("value",tmpObjekt.opis);
+
+    noviElement.addEventListener("keydown",function (g){
+        if (g.keyCode===13){
+            izmjenaVrijednosti(this);
+        }
+                                });
+    
+    noviElement.setAttribute("type", "text" );
+    forma.appendChild(noviElement);
+    forma.appendChild(ispisDatum(tmpObjekt));
+   
+    document.getElementById('lista').appendChild(forma);       
+    
+    $( function() {
+    $( "#inputDatum" ).datepicker();
+    $(".inputDatumi").datepicker({
+        onClose: function(dateText,inst){
+           spremiNoviDatum(this); 
+        } 
+    });
+  } );
 }

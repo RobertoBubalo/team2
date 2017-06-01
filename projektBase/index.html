@@ -39,45 +39,47 @@
                       JustDoIT.com
                   </a>
                 </li>
-                <li class="list-group-item justify-content-between">
+                <li id="activeG" onclick="ispisGeneral()" style="color:blue" class="list-group-item justify-content-between">
 
-                    <h3 onclick="otvoriGeneral()"><i class="fa fa-list" aria-hidden="true"></i> General
-                        <span class="badge badge-default badge-pill broj">1</span>
+                    <h3><i class="fa fa-list" aria-hidden="true"></i> General
+                        <span id="general" class="badge badge-default badge-pill broj">1</span>
 
                     </h3>
                 </li>
-                <li class="list-group-item justify-content-between">
+                <li id="activeP" class="list-group-item justify-content-between" onclick="ispisPrivate()">
 
                     <h3><i class="fa fa-list" aria-hidden="true"></i> Private
-                        <span class="badge badge-default badge-pill broj">1</span>
+                        <span id="private" class="badge badge-default badge-pill broj">1</span>
 
                     </h3>
                 </li>
-                <li class="list-group-item justify-content-between">
+                <li id="activeW" onclick="ispisWork()" class="list-group-item justify-content-between">
 
                     <h3><i class="fa fa-list" aria-hidden="true"></i> Work
-                        <span class="badge badge-default badge-pill broj">1</span>
+                        <span id="work" class="badge badge-default badge-pill broj">1</span>
 
                     </h3>
                 </li>
-                <li class="list-group-item justify-content-between">
+                <li id="activeS" onclick="ispisShopping()" class="list-group-item justify-content-between">
 
                     <h3><i class="fa fa-list" aria-hidden="true"></i> Shopping
-                        <span class="badge badge-default badge-pill broj">1</span>
+                        <span id="shopping" class="badge badge-default badge-pill broj">1</span>
 
                     </h3>
                 </li>
-                <li class="list-group-item justify-content-between">
+                
+                <li id="activeC" onclick="ispisChecked()" class="list-group-item justify-content-between">
 
-                    <h3 onclick="otvoriArhivu()"><i class="fa fa-list" aria-hidden="true"></i> Archive
-                        <span class="badge badge-default badge-pill broj">1</span>
+                    <h3 ><i class="fa fa-list" aria-hidden="true"></i> Done
+                        <span id="checked" class="badge badge-default badge-pill broj">1</span>
 
                     </h3>
                 </li>
-                <li class="list-group-item justify-content-between">
+                
+                <li id="activeA" onclick="ispisArhiva()" class="list-group-item justify-content-between">
 
-                    <h3 onclick="otvoriChecked()"><i class="fa fa-list" aria-hidden="true"></i> Checked
-                        <span class="badge badge-default badge-pill broj">1</span>
+                    <h3 ><i class="fa fa-list" aria-hidden="true"></i> Deleted
+                        <span id="archive" class="badge badge-default badge-pill broj">1</span>
 
                     </h3>
                 </li>
@@ -98,6 +100,8 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
 
                     <ul class="nav navbar-nav navbar-right desno">
+                       <li><a href="#" data-toggle="modal" data-target="#modalNot" 
+                    > Today <span class="badge badge-default badge-pill broj">4</span></a> </li>
                         <li><a href="#">Profil</a></li>
                         <li><a href="#">Themes</a></li>
                     </ul>
@@ -105,6 +109,42 @@
                 </div>
             </div>
         </nav>
+        
+        <!--modal notifikacija-->
+        
+               <div class="modal fade" id="modalNot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title text-center" id="myModalLabel">Today tasks</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+
+                                <div class="form-group">
+                                zadatak1 itd...
+                                </div>
+
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="OK" id="OK" class="btn btn-primary">Ok</button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <div id="page-content-wrapper">
             <div class="row" style="margin-bottom:30px;margin-left:10px;">
@@ -146,14 +186,16 @@
                     <ul id="lista">
 
                     </ul>
-                    <ul id="arhiva"></ul>
-                    <ul id="checked"></ul>
+                    
+                    
                 </div>
             </div>
 
         </div>
 
     </div>
+    
+
 
     <script>
         $(function() {
