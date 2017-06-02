@@ -1,3 +1,11 @@
+//datum izmjena vraca se format stari umjesto da ostane u novom formatu jbt
+
+//checked mapa, ponovo chekiranje ne radi matere ti
+//brisanje iz checked liste, brojac poludi .. 
+
+
+
+
 brojObjekata=0;
 polje=[];
 
@@ -7,6 +15,8 @@ var workX=0;
 var shoppingX=0;
 var archiveX=0;
 var checkedX=0;
+
+var brojacTuM=0;
 
 loadIzLS();
 
@@ -57,6 +67,7 @@ function noviObjekt(){
         brojObjekata++;
     
         spremiULS(tmpObjekt);
+        ispisModala();
     }
 }
 
@@ -110,11 +121,13 @@ function ispis(tmpObjekt){
        forma.appendChild(noviCheck);
     
     document.getElementById('lista').appendChild(forma);
-       
+    
        //checkbox stanje, opacity mjenja ili striketrought bla bla 
      if(tmpObjekt.stanje==true){
         document.getElementById(tmpObjekt.redniBroj-1).style.display= 'none';
          }
+    
+    
        
     
     $( function() {
@@ -141,12 +154,15 @@ function loadIzLS(){
        polje[i]=JSON.parse(localStorage.getItem(brojObjekata));
     
        brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje);
-    if(polje[brojObjekata].mapa=="General"&&polje[brojObjekata].zaArhivu==false){
+   
+       
+       if(polje[brojObjekata].mapa=="General"&&polje[brojObjekata].zaArhivu==false){
         ispis(polje[brojObjekata]);
     }
        
        brojObjekata++
    }
+    ispisModala();
     ispisBrojaca();
 }
 
@@ -204,7 +220,7 @@ function stanje(sender){
         //document.getElementById(idDiv).style.display='unset';
     }
     
-    
+    ispisModala();
     var str=JSON.stringify(polje[idDiv]);
     localStorage.setItem(idDiv, str);
     
@@ -272,7 +288,6 @@ function ispisPrivate(){
     $( ".todoes" ).remove();
     activeDefColor();
     document.getElementById('activeP').style.color="blue";
-    
     for(var i=0;i<brojObjekata;i++){
         if(polje[i].mapa=="Private"&&polje[i].zaArhivu==false){
             ispis(polje[i]);
@@ -345,11 +360,13 @@ function ispisChecked(){
 
 //jquerry datum dropdown
 $( function() {
-    $( "#inputDatum" ).datepicker();
+    $( "#inputDatum" ).datepicker({dateFormat: 'dd/mm/yy'});
     $(".inputDatumi").datepicker({
         onClose: function(dateText,inst){
            spremiNoviDatum(this); 
-        } 
+        },
+        dateFormat: 'dd/mm/yy'
+        
     });
   } );
 
@@ -423,8 +440,77 @@ function prikazArhive(tmpObjekt){
     $( "#inputDatum" ).datepicker();
     $(".inputDatumi").datepicker({
         onClose: function(dateText,inst){
-           spremiNoviDatum(this); 
+           spremiNoviDatum(this);
+            ispisModala();
         } 
     });
   } );
+}
+
+
+
+
+function ispisModala(){
+    
+    $( ".tModal" ).remove();
+    brojacTuM=0;
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].stanje==false&&polje[i].zaArhivu==false &&polje[i].dueDate==todayDate()){
+            ispisTodoUModalu(polje[i]);
+            brojacTuM++;
+            
+        }    
+           
+    }
+    document.getElementById('brOb').setAttribute("data-badge",brojacTuM);
+    todayDate();
+    
+}
+
+
+function ispisTodoUModalu(tmpObjekt){
+    
+    var forma=document.createElement("div");//kreira <div>
+        forma.setAttribute("class", "tModal");     
+
+    var noviElement = document.createElement('li'); 
+    
+    noviElement.setAttribute("class","opisi");
+            
+            var strZaLi=document.createTextNode(tmpObjekt.opis);
+    noviElement.appendChild(strZaLi);
+    
+    noviElement.setAttribute("type", "text" );
+    
+    
+    
+    forma.appendChild(noviElement);
+    
+    document.getElementById('ulToday').appendChild(forma);       
+    
+}
+
+function todayDate(){
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    } 
+    if(mm<10){
+        mm='0'+mm;
+    } 
+    var today = dd+'/'+mm+'/'+yyyy;
+    
+    document.getElementById('myModalLabel').innerHTML="Today tasks on "+today;
+    return today;
+}
+
+function clearLS(){
+    for(var i=0;i<brojObjekata;i++){
+        //dodati instancu izbrisano u objekte, na klik se mjenjaju stanja i ne prikazuje se vise u aplikaciji
+    }
 }

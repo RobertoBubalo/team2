@@ -100,6 +100,8 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
 
                     <ul class="nav navbar-nav navbar-right desno">
+                       <li onclick="ispisModala()"><a id="brOb" href="#" data-toggle="modal" data-target="#modalNot" class="badgenot"
+                       data-badge="99"> Today</a> </li>
                         <li><a href="#">Profil</a></li>
                         <li><a href="#">Themes</a></li>
                     </ul>
@@ -107,6 +109,43 @@
                 </div>
             </div>
         </nav>
+        
+        <!--modal notifikacija-->
+        
+               <div  class="modal fade" id="modalNot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title text-center" id="myModalLabel"></h4>
+                            
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+
+                                <div class="form-group">
+                                <ul id="ulToday"></ul>
+                                </div>
+
+
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="OK" id="OK" class="btn btn-primary">Ok</button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <div id="page-content-wrapper">
             <div class="row" style="margin-bottom:30px;margin-left:10px;">
@@ -115,7 +154,7 @@
                     <div class="input-group input-group-lg">
                     
                       <input type="text" class="form-control" placeholder="Add a to-do..." id="input"><span class="input-group-btn">
-                       <button class="btn btn-default dodaj" type="button" onclick="noviObjekt()">
+                       <button class="btn btn-default dodaj" type="button" onclick="noviObjekt()" >
                         <span class="glyphicon glyphicon-plus"></span> Add Task</button>
                        
                         <select class="selectpicker kategrija" data-width="fit">
@@ -129,7 +168,7 @@
                         </span>
 
                         <div class="col-lg-3 input-group-lg">
-                            <input type="text" class="form-control " placeholder="Due date..." id="inputDatum">
+                            <input type="text" class="form-control " placeholder="Due date..." id="inputDatum" >
 
                         </div>
                         
@@ -149,12 +188,15 @@
 
                     </ul>
                     
+                    
                 </div>
             </div>
 
         </div>
 
     </div>
+    
+
 
     <script>
         $(function() {

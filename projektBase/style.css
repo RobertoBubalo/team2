@@ -251,6 +251,20 @@ top:6px}
 
 #lista div .opisi:focus {}
 
-
+.badgenot {
+		position:relative;
+	}
+	.badgenot[data-badge]:after {
+        content:attr(data-badge);
+		position:absolute;
+		top:0px;
+		right:0px;
+		font-size:.7em;
+		background:#16B7FF;
+		color:white;
+		width:50px;height:20px;
+		text-align:center;
+		border-radius:50%;
+	}
 
 
