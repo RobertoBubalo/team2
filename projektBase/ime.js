@@ -1,9 +1,5 @@
-//datum izmjena vraca se format stari umjesto da ostane u novom formatu jbt
-
-//checked mapa, ponovo chekiranje ne radi matere ti
-//brisanje iz checked liste, brojac poludi .. 
-
-
+//1.dodavanje clear all deleted... 
+//
 
 
 brojObjekata=0;
@@ -27,6 +23,7 @@ function zadatak(rb,text,datum,odabir){
     this.dueDate=datum;  
     this.stanje=false;
     this.zaArhivu=false;
+    this.izbrisano=false;
     this.mapa=odabir;
     
     
@@ -128,16 +125,19 @@ function ispis(tmpObjekt){
          }
     
     
-       
-    
     $( function() {
-    $( "#inputDatum" ).datepicker();
+    $( "#inputDatum" ).datepicker({dateFormat: 'dd/mm/yy'});
     $(".inputDatumi").datepicker({
         onClose: function(dateText,inst){
            spremiNoviDatum(this); 
-        } 
+        },
+        dateFormat: 'dd/mm/yy'
+        
     });
-  } );
+  } );   
+    
+
+    
 }
     
     
@@ -182,11 +182,11 @@ function removeZadatak(sender){
     document.getElementById(idZaRemove.getAttribute('id')).style.display='none';
     polje[idic].zaArhivu=true;
     
-    if(polje[idic].mapa=="General"){generalX--;}
-    if(polje[idic].mapa=="Private"){privateX--;}
-    if(polje[idic].mapa=="Work"){workX--;}
-    if(polje[idic].mapa=="Shopping"){shoppingX--;} archiveX++;
-    
+    if(polje[idic].mapa=="General"&&polje[idic].stanje==false){generalX--;}
+    if(polje[idic].mapa=="Private"&&polje[idic].stanje==false){privateX--;}
+    if(polje[idic].mapa=="Work"&&polje[idic].stanje==false){workX--;}
+    if(polje[idic].mapa=="Shopping"&&polje[idic].stanje==false){shoppingX--;} archiveX++;
+    if(polje[idic].stanje==true){checkedX--;}
     ispisBrojaca();
     
     localStorage.setItem(idic, JSON.stringify(polje[idic]));
@@ -217,7 +217,13 @@ function stanje(sender){
         
     }else{
         polje[idDiv].stanje=false;
-        //document.getElementById(idDiv).style.display='unset';
+        document.getElementById(idDiv).style.display='none';
+        if(polje[idDiv].mapa=="General"){generalX++;}
+        if(polje[idDiv].mapa=="Private"){privateX++;}
+        if(polje[idDiv].mapa=="Work"){workX++;}
+        if(polje[idDiv].mapa=="Shopping"){shoppingX++;} checkedX--;
+    
+        ispisBrojaca();
     }
     
     ispisModala();
@@ -237,19 +243,6 @@ function izmjenaVrijednosti(sender){ //sprema se vrijednost u polje i u localsto
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function ispisDatum(tmpObjekt){
     var inputDatum=document.createElement('input');
         inputDatum.setAttribute("type", "text");
@@ -263,6 +256,7 @@ function spremiNoviDatum(sender){
     var idDiv=idParentElemeneta.getAttribute('id');
     polje[idDiv].dueDate=sender.value;
     localStorage.setItem(idDiv, JSON.stringify(polje[idDiv]));
+    ispisModala();
 }
 
 
@@ -385,7 +379,7 @@ function brojacTodo(mapica,arhiva,chekirano){
         workX++;
     }else if(mapica=="Shopping"&& arhiva==false&& chekirano==false){
         shoppingX++;
-    }else if(arhiva==true&& chekirano==false){
+    }else if((arhiva==true&& chekirano==false)||(arhiva==true&&chekirano==true)){
         archiveX++;
     }else if(arhiva==false&& chekirano==true){
         checkedX++;
