@@ -9,35 +9,38 @@
   
   
   .navbar {
-      padding-top: 15px;
-      padding-bottom: 15px;
+      padding-top: 10px;
+      padding-bottom: 10px;
       border: 0;
       border-radius: 0;
       margin-bottom: 0;
       font-size: 16px;
       letter-spacing: 5px;
+      font-weight: 500;
   }
   
   .navbar-nav li a:hover {
-      color: #1abc9c !important;
-      border-bottom: 0.2px solid #1abc9c;
+      color: #2D6CDF !important;
+      border-bottom: 0.01px solid #2D6CDF;
   }
+
+/*Naslov*/
   
   #box-wrapper {
       color: #f5f6f7;
-      background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(slika3.jpg);
+      background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(slika3.jpg);
       z-index:-1;
       background-attachment: fixed;
       background-position: center;
       background-repeat: none;
       background-size: cover;
       min-height: 640px;
-      line-height: 1.7;
+      line-height: 1.9;
   }
   
   #box-wrapper h1 {
-      font-size: 40px;
-      font-weight: 700;
+      font-size: 45px;
+      font-weight:900;
       padding-top: 30px;
   }
 
@@ -49,6 +52,12 @@
 
 .plavi:hover{
     background-color: #2D6CDF;
+    color: white;
+}
+
+.plavi:active{
+    background-color: #2D6CDF;
+    color: white;
 }
   
   #box-wrapper h1,
@@ -113,8 +122,14 @@
     min-height: 650px;
 }
 
-.para1 h2 {
 
+.prvi h2:before{
+    content: "";
+    position: absolute;
+    width: 12%;
+    bottom: -10px;
+    left: 43%;
+    border-bottom: 2px solid  #4d90fe;
 }
 
 .funkcije {
@@ -123,8 +138,14 @@
   margin-bottom: 40px;
   position: relative;
 }
-.funkcije h2, .funkcije p {
+.funkcije h3 {
+    font-weight: 500;
+    margin-top:-10px;
+}
+
+.funkcije p {
 color: black;
+    margin-top: 10px
 }
 
 .funkcije .icon {
@@ -137,6 +158,12 @@ color: black;
   border-radius: 50%;
   transition: 0.3s;
     border: 1.5px solid #2D6CDF;
+}
+
+.funkcije .icon i:hover{
+    background-color:  #2D6CDF;
+    color: aliceblue;
+    border-radius: 50%;
 }
 @media screen and (max-width: 992px) {
   .funkcije .icon {
@@ -162,12 +189,12 @@ color: #2D6CDF;
       background-position: center;
       background-repeat: none;
       background-size: cover;
-      min-height: 140px;
+      min-height: 160px;
       line-height: 1.7;
 }
 
 .drugi h2, .botuni{
-    margin-top: 50px;
+    margin-top: 60px;
 }
 
 
@@ -250,14 +277,15 @@ color: #2D6CDF;
     background-color: #5B7BD5;
 }
 
-/*tim*/
+/*tim #489FDF*/
 
 
 
 .team {
-    min-height: 600px;
-    padding: 50px 0 100px;
+    min-height: 640px;
+    padding: 50px 0px 100px;
     text-align: center;
+    background-color: white;
 }
 
 .team img {
@@ -269,32 +297,164 @@ color: #2D6CDF;
 
 .single-team{
     
-    border:3px solid #2D6CDF;
-    border-radius: 30px;
-    box-shadow: 10px 10px 10px gray;
+    border:3px solid #457fca;
+    
+    box-shadow: 20px 20px 10px gray;
+    margin-top: 50px;
+    background: #457fca;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #5691c8, #457fca);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #5691c8, #457fca); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: white;
 }
 
-/*testimonial*/
+.slikamem{
+    position: relative;
+    top: -30px; 
+}
 
-/*.tcb-simple-carousel{
-    margin-top: 50px;}
-    .carousel-control {
-        background:	#ddd;
-        color:#999;
-        padding: 4px 0;
-        width:26px;
-        top:auto;	
-        left:auto;
-        bottom:0;
-        opacity:1;
-        text-shadow:none;
-    }
-    .carousel-control.right {
-        right:10px;
-    }
-    .carousel-control.left {
-        right: 40px;
-    }
-}*/
+#team h2:after{
+     content: "";
+    position: absolute;
+    width: 10%;
+    bottom: 40px;
+    left: 45%;
+    border-bottom: 2px solid  #4d90fe;
+}
+
+#team h2{
+
+}
+
+#team p{
+    margin-top: 20px;
+}
+
+#team h3{
+    margin-top:8px;
+}
 
 
+/*carosel testemonials*/
+
+section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+   min-height: 560px;
+}
+
+.slikapoz{
+    background-size: 100% 100%;
+}
+
+
+#fade-quote-carousel.carousel {
+  padding-bottom: 30px;
+       padding:30px;
+    border: 3px solid #2D6CDF;
+    border-radius: 20px;
+    box-shadow: 20px 20px 10px gray;
+}
+#fade-quote-carousel.carousel .carousel-inner .item {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+      -ms-transition-property: opacity;
+          transition-property: opacity;
+}
+#fade-quote-carousel.carousel .carousel-inner .active {
+  opacity: 1;
+  -webkit-transition-property: opacity;
+      -ms-transition-property: opacity;
+          transition-property: opacity;
+ 
+    
+}
+#fade-quote-carousel.carousel .carousel-indicators {
+  bottom: 10px;
+}
+#fade-quote-carousel.carousel .carousel-indicators > li {
+  background-color: #2D6CDF;
+  border: none;
+}
+#fade-quote-carousel blockquote {
+    text-align: center;
+    border: none;
+}
+
+#fade-quote-carousel p{
+    font-size: 17px;
+}
+
+#fade-quote-carousel i{
+    color:#2D6CDF;
+}
+#fade-quote-carousel .profile-circle {
+    width: 170px;
+    height: 170px;
+    margin: 0 auto;
+    border-radius: 100px;
+}
+
+
+#quote-carousel {
+    padding: 0 10px 30px 10px;
+    margin-top: 60px;
+}
+#quote-carousel .carousel-control {
+    background: none;
+    color: #CACACA;
+    font-size: 2.3em;
+    text-shadow: none;
+    margin-top: 30px;
+}
+#quote-carousel .carousel-indicators {
+    position: relative;
+    right: 50%;
+    top: auto;
+    bottom: 0px;
+    margin-top: 20px;
+    margin-right: -19px;
+}
+
+#quote-carousel .carousel-indicators .active {
+    width: 128px;
+    height: 128px;
+    opacity: 1;
+    transition: all .2s;
+}
+
+/* broj*/
+
+.brojac{  color: #f5f6f7;
+      background-image: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(slika3.jpg);
+      z-index:-2;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: none;
+      background-size: cover;
+      min-height: 140px;
+      line-height: 1.7;
+    min-height: 400px;
+    font-family: "Roboto Slab", serif;
+}
+
+.bootcamp{
+    margin-top: 100px;
+}
+
+.brojac h1{
+    font-size: 44px;
+}
+
+
+/*footer*/
+
+.footer{
+    background-color: black;
+    color:white;
+    width: 100%;
+    min-height:100px;
+}
+
+.duo{margin-top: 35px;
+}

@@ -5,11 +5,31 @@
     <title>JustDoIT</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--alert-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
+
+    <!--style-->
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!--show/hide pass-->
+
+    <script>
+        $(document).ready(function() {
+            $("#password_show_button").mouseup(function() {
+                $("#test1").attr("type", "password");
+            });
+            $("#password_show_button").mousedown(function() {
+                $("#test1").attr("type", "text");
+            });
+        });
+    </script>
 
 </head>
 
@@ -46,6 +66,24 @@
 
             </div>
         </nav>
+
+        <!--notifikacija-->
+
+        <script type="text/javascript">
+            $(".navbar-brand").click(function() {
+                $.bootstrapGrowl('You are a genius.', {
+                    type: 'success',
+                    delay: 3000,
+                });
+            });
+
+            $(".navbar-brand").click(function() {
+                $.bootstrapGrowl('Sjebo si', {
+                    type: 'danger',
+                    delay: 3000,
+                });
+            });
+        </script>
         <!--Modal update-->
 
         <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -128,7 +166,7 @@
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <div class="input-group pb-modalreglog-input-group">
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        <span class="input-group-addon"><span class="fa fa-envelope"></span></span>
                                         <input type="email" class="form-control" name="email2" id="email2" placeholder="Email">
 
                                     </div>
@@ -138,6 +176,7 @@
                                     <div class="input-group pb-modalreglog-input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                                         <input type="password" class="form-control" name="pws" id="pws" placeholder="Password">
+                                        <span style="width:0%" id="password_show_button" class="input-group-addon"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -146,7 +185,6 @@
                                 <div class="form-group">
                                     If you dont have an account you can <a data-toggle="modal" data-target="#myModal2" data-dismiss="modal"> register here</a>
                                 </div>
-
 
                             </form>
                         </div>
@@ -185,7 +223,7 @@
                             <div class="form-group">
                                 <label for="email">Email address</label>
                                 <div class="input-group pb-modalreglog-input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <span class="input-group-addon"><span class="fa fa-envelope"></span></span>
                                     <input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required="required" title="Incorret e-mail format">
                                 </div>
                             </div>
@@ -212,7 +250,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="checkbox" id="ch" name="chs"> I agree with <a href="#">terms and conditions.</a>
+                                <input type="checkbox" id="ch" name="chs"> I'm not a robot.
                             </div>
                             <div class="form-group">
                                 Already have an account? <a data-toggle="modal" data-target="#myModal" data-dismiss="modal"> Login here</a>
@@ -251,7 +289,7 @@
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <div class="input-group pb-modalreglog-input-group">
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        <span class="input-group-addon"><span class="fa fa-envelope"></span></span>
                                         <input type="email" class="form-control" name="email2" id="email2" placeholder="Email">
 
                                     </div>
@@ -287,7 +325,7 @@
                         <h1>To do list</h1>
                         <p> The best app of all time. Never forget about anything ever again. This app will change your life forever. Now available on your phone, pc or tablet.</p>
                         <button class="btn btn-lg btn-primary prvib">Download App</button>
-                        <button class="btn btn-lg btn-success plavi">Download Extension</button>
+                        <button class="btn btn-lg plavi">Download Extension</button>
                     </div>
 
                 </div>
@@ -307,88 +345,88 @@
                     <div class="col-md-3 col-sm-6 text-center">
                         <div class="funkcije">
                             <span class="icon">
-                        <i class="glyphicon glyphicon-globe" ></i>
+                        <i class="fa fa-globe " ></i>
                     </span>
                             <div class="desc">
                                 <h3>Plan for everything</h3>
-                                <p>Make your life easier with this simple app. </p>
+                                <p>Make your life easier with this simple app. Never forget important things again.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 text-center">
                         <div class="funkcije">
                             <span class="icon">
-                        <i class="glyphicon glyphicon-ok" ></i>
+                        <i class="fa fa-calendar-check-o" ></i>
                     </span>
                             <div class="desc">
                                 <h3>Due date</h3>
-                                <p>Organize your life once and for all.</p>
+                                <p>Set a due date and get reminded so you dont miss your tasks.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 text-center">
                         <div class="funkcije">
                             <span class="icon">
-                        <i class="glyphicon glyphicon-home" ></i>
+                        <i class="fa fa-history" ></i>
                     </span>
                             <div class="desc">
                                 <h3>History</h3>
-                                <p>See what tasks you have already done. </p>
+                                <p>See what tasks you have already done. Dont do them again or do.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 text-center">
                         <div class="funkcije">
                             <span class="icon">
-                        <i class="glyphicon glyphicon-file" ></i>
+                        <i class="fa fa-list" ></i>
                     </span>
                             <div class="desc">
                                 <h3>Categories</h3>
-                                <p>Make your life easier with this app.</p>
+                                <p>Place your tasks in different categories. Manage every aspect of your life.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 text-center">
                         <div class="funkcije">
                             <span class="icon">
-                        <i class="glyphicon glyphicon-list-alt" ></i>
+                        <i class="fa fa-map-marker" ></i>
                     </span>
                             <div class="desc">
                                 <h3>Maps</h3>
-                                <p>Make your life easier with this app.</p>
+                                <p>You want to set your task on a map. We got you covered.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 text-center">
                         <div class="funkcije">
                             <span class="icon">
-                        <i class="glyphicon glyphicon-globe" ></i>
+                        <i class="fa fa-desktop" ></i>
                     </span>
                             <div class="desc">
                                 <h3>Themes</h3>
-                                <p>Make your life easier with this app.</p>
+                                <p>Choose from a variety of different themes.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 text-center">
                         <div class="funkcije">
                             <span class="icon">
-                        <i class="glyphicon glyphicon-globe" ></i>
+                        <i class="fa fa-sign-in" ></i>
                     </span>
                             <div class="desc">
                                 <h3>Sign up</h3>
-                                <p>Make your life easier with this app.</p>
+                                <p>Sign up with us and be part of the growing community.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 text-center">
                         <div class="funkcije">
                             <span class="icon">
-                        <i class="glyphicon glyphicon-globe" ></i>
+                        <i class="fa fa-globe" ></i>
                     </span>
                             <div class="desc">
                                 <h3>Everywhere</h3>
-                                <p>Make your life easier with this app.</p>
+                                <p>Access our app from anywhere.</p>
                             </div>
                         </div>
                     </div>
@@ -396,11 +434,11 @@
             </div>
         </div>
         <!--drugi paragraf-->
-        <div class="drugi" style="background-color:white;">
+        <div class="drugi">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-5 text-center">
-                        <h2>Get started its free</h2>
+                        <h2>Get started it's free</h2>
                     </div>
                     <div class="cold-sm-5 text-center botuni">
                         <button class="loginBtn facebook"> Login with Facebook
@@ -415,95 +453,184 @@
                 </div>
             </div>
         </div>
-        <!--
-             <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="tcb-simple-carousel">
-                    <div id="myCarousel" class="carousel slide">         
-                        <div class="carousel-inner">           
-                            <div class="item active">
-                                <blockquote>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                                </blockquote>
-                            </div>
-                            <div class="item">
-                                <blockquote>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                                </blockquote>
-                             </div>  
-                            <div class="item">
-                                <blockquote>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                                </blockquote>
-                            </div>                                                                                   
-                        </div> 
-                       <div class="carousel-controls">
-                          <a class="carousel-control left" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-user"></span></a>
-                          <a class="carousel-control right" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-user"></span></a>
-                      </div>               
-                    </div>
-                </div>
-            </div>
-        </div>
-  
-    </div>    -->
 
+        <!--team paragraf 3-->
 
         <div id="team" class="team">
             <div class="container">
                 <div class="row text-center">
                     <div class="col-sm-8 col-sm-offset-2">
                         <h2 class="title-one">Meet The Team</h2>
+
                         <p>The best team out there.</p>
                     </div>
                 </div>
 
-
-
-                <div class="col-sm-6 col-md-3">
+                <div class=" col-md-3">
                     <div class="single-team">
-                        <img src="slika1.jpg" alt="team member" />
-                        <h4>Jure Juric</h4>
-                        <h5>sef</h5>
+                        <img class="img-circle slikamem" src="slika1.jpg" />
+                        <h3>Marina Bašić</h3>
+                        <h4>CEO</h4>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
 
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class=" col-md-3">
                     <div class="single-team">
-                        <img src="slika1.jpg" alt="team member" />
-                        <h4>Pero Peric</h4>
-                        <h5>sef</h5>
+                        <img class="img-circle slikamem" src="slika1.jpg" alt="team member" />
+                        <h3>Roberto Bubalo</h3>
+                        <h4>CEO</h4>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
 
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-md-3">
                     <div class="single-team">
-                        <img src="slika1.jpg" alt="team member" />
-                        <h4>Ivo Ivic</h4>
-                        <h5>sef</h5>
+                        <img class="img-circle slikamem" src="slika1.jpg" alt="team member" />
+                        <h3>Andrea Paljuh</h3>
+                        <h4>CEO</h4>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod</p>
 
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class=" col-md-3">
                     <div class="single-team">
-                        <img src="slika1.jpg" alt="team member" />
-                        <h4>Duro DUric</h4>
-                        <h5>sef</h5>
+                        <img class="img-circle slikamem " src="slika1.jpg" alt="team member" />
+                        <h3>Goran Zorkić</h3>
+                        <h4>CEO</h4>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismodsed diam nonummy</p>
 
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!--broj-->
+
+        <div class="brojac">
+            <div class="container">
+
+
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 text-center bootcamp">
+                        <i class="fa fa-users fa-4x"></i>
+                        <div class="desc">
+                            <h1>20</h1>
+                            <h3>People </h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center bootcamp">
+                        <i class="fa fa-clock-o fa-4x"></i>
+                        <div class="desc">
+                            <h1>500</h1>
+                            <h3>Work hours </h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center bootcamp">
+                        <i class="fa fa-code-fork fa-4x"></i>
+                        <div class="desc">
+                            <h1>5</h1>
+                            <h3>Projects</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center bootcamp">
+                        <i class="fa fa-handshake-o fa-4x"></i>
+                        <div class="desc">
+                            <h1>1</h1>
+                            <h3>Demo day </h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
 
 
+        <!--Testemonials-->
+        <section id="carousel">
+            <div class="container">
+                <div class="row" style="margin-bottom:30px; margin-top:-40px;">
+                    <div class="col-md-6 col-md-offset-3 text-center">
+                        <h2>Recommended by</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+
+                        <div class="carousel slide" id="fade-quote-carousel" data-ride="carousel" data-interval="5000">
+                            <!-- Carousel indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#fade-quote-carousel" data-slide-to="0"></li>
+                                <li data-target="#fade-quote-carousel" data-slide-to="1"></li>
+                                <li data-target="#fade-quote-carousel" data-slide-to="2" class="active"></li>
+                                <li data-target="#fade-quote-carousel" data-slide-to="3"></li>
+                                <li data-target="#fade-quote-carousel" data-slide-to="4"></li>
+                                <li data-target="#fade-quote-carousel" data-slide-to="5"></li>
+                            </ol>
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                <div class="item">
+                                    <div class="profile-circle slikapoz" style="background-image:url(slika1.jpg);"></div>
+                                    <blockquote><i class="fa fa-quote-left fa-3x" aria-hidden="true"></i>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        <small>Jana</small>
+                                    </blockquote>
+                                </div>
+                                <div class="item">
+                                    <div class="profile-circle slikapoz" style="background-image:url(slika1.jpg);"></div>
+                                    <blockquote><i class="fa fa-quote-left fa-3x" aria-hidden="true"></i>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        <small>Lionel Messi</small>
+                                    </blockquote>
+                                </div>
+                                <div class="active item">
+                                    <div class="profile-circle slikapoz" style="background-image:url(slika1.jpg);"></div>
+                                    <blockquote><i class="fa fa-quote-left fa-3x" aria-hidden="true"></i>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        <small>Donald Trump</small>
+                                    </blockquote>
+                                </div>
+                                <div class="item">
+                                    <div class="profile-circle slikapoz" style="background-image:url(slika1.jpg);"></div>
+                                    <blockquote><i class="fa fa-quote-left fa-3x" aria-hidden="true"></i>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        <small>Rihanna</small>
+                                    </blockquote>
+                                </div>
+                                <div class="item">
+                                    <div class="profile-circle slikapoz" style="background-image:url(slika1.jpg);"></div>
+                                    <blockquote><i class="fa fa-quote-left fa-3x" aria-hidden="true"></i>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        <small>Ivo Sanader</small>
+                                    </blockquote>
+                                </div>
+                                <div class="item">
+                                    <div class="profile-circle slikapoz" style="background-image:url(slika1.jpg);"></div>
+                                    <blockquote><i class="fa fa-quote-left fa-3x " aria-hidden="true"></i>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, veritatis nulla eum laudantium totam tempore optio doloremque laboriosam quas, quos eaque molestias odio aut eius animi. Impedit temporibus nisi accusamus.</p>
+                                        <small>Michael Jackson</small>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--footer-->
+        <div class="container footer">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="col-xs-6 col-sm-3"><img src="exevio1.png" /></div>
+                    <div class="col-xs-6 col-sm-3"><img src="ctk.png" /></div>
+                    <div class="col-xs-6 col-sm-3 duo"><img src="stepri.png" /></div>
+
+
+                </div>
+
+
+            </div>
         </div>
 
 
@@ -511,6 +638,8 @@
 
 
     </div>
+
+
 </body>
 
 </html>
