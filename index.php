@@ -3,17 +3,8 @@
 session_start();
 
 /*
-if submit forgot pass
-post mail
-check mail in DB
-update pass
-send mail
 
-
-$sifra = rand();
-$prvi = password_hash($sifra, PASSWORD_BCRYPT, array ('cost' => 2 ));
-$sentsifra = substr('$prvi', 3, 10);
-$PWhash = password_hash($sentsifra, PASSWORD_BCRYPT, array ('cost' => 2 ));
+ I have found the way!!! bauahahahahahah $_SESSIONs are the key
 
 $ime = "alen";
 echo "$ime je glup";*/
@@ -23,6 +14,7 @@ echo "$ime je glup";*/
 
 // isset - Returns TRUE if var exists and has value other than NULL. FALSE otherwise.
 //	$_POST -  is used to collect form-data.
+
 if(isset($_POST['reg'])){
 	
 	if(isset($_POST['ch'])){
@@ -120,6 +112,101 @@ if(isset($_POST['reg'])){
 	
 ?>
 
+
+<?php
+session_start();
+/*
+if submit forgot pass
+post mail
+check mail in DB
+update pass
+send mail
+
+
+$sifra = rand();
+$prvi = password_hash($sifra, PASSWORD_BCRYPT, array ('cost' => 2 ));
+$sentsifra = substr('$prvi', 3, 10);
+$PWhash = password_hash($sentsifra, PASSWORD_BCRYPT, array ('cost' => 2 )); */
+if(isset($_POST['forgo'])){
+	
+$email = $_POST['email3'];
+
+
+$result = mysqli_query($conn, "SELECT * FROM korisnik where email='".$email."' ");
+		// mysqli_fetch_array() is an extended version of the mysqli_fetch_row() function. In addition to storing the data in the numeric indices of the result array,
+		// the mysqli_fetch_array() function can also store the data in associative indices, using the field names of the result set as keys.
+		$row = mysqli_fetch_array($result,MYSQLI_BOTH);
+		
+
+		$_SESSION["UserID"] = $row[0];
+		$_SESSION["UserEmail"] = $row[1];
+		$_SESSION["UserPW"] = $row[2];
+		$_SESSION["UserName"] = $row[3];
+		$id = $_SESSION["UserID"];
+		$uname = $_SESSION["UserName"];
+		
+		
+		if ( $id )
+		{
+			$_SESSION['forgot'] = 'test';
+			
+			$sentsifra = substr(GeraHash($id), 5, 10);
+			$PWhash = password_hash($sentsifra, PASSWORD_BCRYPT, array ('cost' => 6 ));
+			
+			$sql = mysqli_query($conn, "UPDATE korisnik SET  status = '1', confirmcode = '0', sifra ='".$PWhash."'  where id = '".$id."' ");
+			
+			$message = "Your new password is  $sentsifra";
+			
+			mail($email,"$uname Forgotten password",$message,"From: noreply@exevio.com");
+			echo "$uname password has been sent to your mail, $sentsifra";
+			?>
+		
+		<script type="text/javascript">
+	 function passReset(){
+		$.bootstrapGrowl('Password has been reseted and sent to your e-mail!', {
+			type: 'warning',
+			delay: 8000,
+		});
+	};
+	</script>
+		
+			<?
+			
+		}else{
+			echo "neki fail";
+			
+		}
+		
+		
+		
+}
+
+?>
+
+
+<?php 
+// funkcija za random hashiranje i resetiranje sifre - nasao na netu
+// http://php.net/manual/en/function.rand.php
+function GeraHash($qtd){ 
+//Under the string $Caracteres you write all the characters you want to be used to randomly generate the code. 
+$Caracteres = 'ABCDEFGHIJKLMOPQRSTUVXWYZ0123456789'; 
+$QuantidadeCaracteres = strlen($Caracteres); 
+$QuantidadeCaracteres--; 
+
+$Hash=NULL; 
+    for($x=1;$x<=$qtd;$x++){ 
+        $Posicao = rand(0,$QuantidadeCaracteres); 
+        $Hash .= substr($Caracteres,$Posicao,1); 
+    } 
+
+return $Hash; 
+} 
+
+//Here you specify how many characters the returning string must have 
+//echo GeraHash(10); 
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,6 +219,9 @@ if(isset($_POST['reg'])){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
     <!--alert-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
 
@@ -142,7 +232,6 @@ if(isset($_POST['reg'])){
 	<!--old crap-->
 	
 	  
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
   
     <link rel="stylesheet" type="text/css" href="style3.css">
 	
@@ -150,6 +239,7 @@ if(isset($_POST['reg'])){
     <meta name="google-signin-client_id" content="1082983336226-ph2q77qr0crnhgijo1sa9ib5efijsl2h.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 	
+
 	
     <!--show/hide pass-->
 
@@ -167,12 +257,30 @@ if(isset($_POST['reg'])){
 </head>
 
 <body>
-<!-- ubaciit u style!! -->
-<style>
-	.hidden{
-		display: none;
-	}
-</style>
+
+<div class="excontainer">
+    <button id="loadbasic">basic load</button>
+    <div id="result"></div>
+ 
+</div>
+<script>
+$(function(){
+    // don't cache ajax or content won't be fresh
+    $.ajaxSetup ({
+        cache: false
+    });
+    var ajax_load = "<img src='http://i.imgur.com/XqGErUf.gif' alt='loading...' />";
+    
+    // load() functions
+    var loadUrl = "http://fiddle.jshell.net/dvb0wpLs/show/";
+    $("#loadbasic").click(function(){
+        $("#result").html(ajax_load).load(loadUrl);
+    });
+
+// end  
+});
+</script>
+
     <div id="page">
 
         <nav class="navbar navbar-default">
@@ -185,6 +293,45 @@ if(isset($_POST['reg'])){
                  </button>
                     <a class="navbar-brand" href="#">JustDoIT</a>
                 </div>
+					
+	<!--notifikacija-->
+
+<script type="text/javascript">
+	 function popic(){
+		$.bootstrapGrowl('You are logged in!', {
+			type: 'success',
+			delay: 8000,
+		});
+	};
+	function popic2(){
+		$.bootstrapGrowl('Password has been reset, and sent to your mail!', {
+			type: 'success',
+			delay: 10000,
+		});
+	};
+	$(".navbar-brand").click(function() {
+		$.bootstrapGrowl('You are a genius.', {
+			type: 'success',
+			delay: 3000,
+		});
+	});
+
+	$(".navbar-brand").click(function() {
+		$.bootstrapGrowl('Sjebo si', {
+			type: 'danger',
+			delay: 3000,
+		});
+	});
+</script>
+<script type="text/javascript">
+	 function passReset(){
+		$.bootstrapGrowl('Password has been reseted and sent to your e-mail!', {
+			type: 'warning',
+			delay: 8000,
+		});
+	};
+	</script>
+				
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-left">
                         <li><a href="#">Home</a></li>
@@ -194,6 +341,7 @@ if(isset($_POST['reg'])){
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" data-toggle="modal" id="t1" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
                         <li><a href="#" data-toggle="modal" id="t2" data-target="#myModal2"><span class="glyphicon glyphicon-user"></span> Sign Up</a> </li>
+						
 							
 							<?php
 					
@@ -239,6 +387,10 @@ if(isset($_POST['reg'])){
 		 <li><a href="logout.php" ><span class="glyphicon glyphicon-log-out"></span> Log-out</a> </li>
 		<script> document.getElementById("t1").style.display="none";
 				 document.getElementById("t2").style.display="none";
+				 
+			
+			 popic(); 
+		
 				
 
 		</script>
@@ -286,10 +438,6 @@ if(isset($_POST['reg'])){
 ?>
 
 						</ul>
-
-                </div>
-
-
 
             </div>
         </nav>
@@ -398,9 +546,7 @@ if(isset($_POST['reg'])){
     </div>
 
         <!--Modal Registracija-->
-
         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
-
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <form class="pb-modalreglog-form-reg" action="" method="post">
@@ -495,58 +641,75 @@ if(isset($_POST['reg'])){
             </div>
 
         </div>
-        <!--modal forgot password-->
+		
+		
+		
+		
+		
+		
+		<!--Modal forgot password-->
+				
+				
+				
 		<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                    <h4 class="modal-title" id="myModalLabel">Forgotten password form</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post" >
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					<h4 class="modal-title" id="myModalLabel">Forgotten password form</h4>
+				</div>
+				<div class="modal-body">
+					<form action="" method="post" >
 						
 						
-                        <div class="form-group">
-                            <label for="email">Email address</label>
-                            <div class="input-group pb-modalreglog-input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                <input type="email" required="required" class="form-control" name="email3" id="email3" placeholder="Email">
+						<div class="form-group">
+							<label for="email">Email address</label>
+							<div class="input-group pb-modalreglog-input-group">
+								<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+								<input type="email" required="required" class="form-control" name="email3" id="email3" placeholder="Email">
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <div class="input-group pb-modalreglog-input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                <input type="password" required="required" class="form-control" name="pws" id="pws" placeholder="Password">
-								<span style="width:0%" id="password_show_button" class="input-group-addon"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
+							</div>
+						</div>
 						
-                                <div class="form-group">
-                                  <a data-toggle="modal" data-target="#myModal2" data-dismiss="modal"> Don't have an account yet? Register here</a>
-                                </div>
+						
 								<div class="form-group">
-                               <a data-toggle="modal" data-target="#myModal" data-dismiss="modal">  Already have an account? Login here </a>
-                            </div>
-                   
+								  <a data-toggle="modal" data-target="#myModal2" data-dismiss="modal"> Don't have an account yet? Register here</a>
+								</div>
+								<div class="form-group">
+							   <a data-toggle="modal" data-target="#myModal" data-dismiss="modal">  Already have an account? Login here </a>
+							</div>
+				   
 				</div>
 					<div class="modal-footer">
 					<div style="float:left">
 						Sign in with <a href="#" class="btn btn-primary">Facebook</a> <a href="#" class="btn btn-danger">
 						Google</a></div>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="submit" name="Login" id="Login" class="btn btn-primary">Log in</button>
+						<button type="submit" name="forgo" id="forgo" class="btn btn-primary">Log in</button>
+						<?php
+						if ($_SESSION['forgot']){
+							?>
+							<script>
+						popic2();
+						</script>
+						
+						<?
+							
+							
+						}else{
+							
+						}
+						unset($_SESSION['forgot']);
+							
+						?>
 						
 					</div>
 					</form>
-            </div>
-        </div>
-    </div>
-
+			</div>
+		</div>
+	</div>
 
 
         <!--naslovslika-->
@@ -872,23 +1035,7 @@ if(isset($_POST['reg'])){
 
     </div>
 	
-<!--notifikacija-->
 
-<script type="text/javascript">
-	$(".navbar-brand").click(function() {
-		$.bootstrapGrowl('You are a genius.', {
-			type: 'success',
-			delay: 3000,
-		});
-	});
-
-	$(".navbar-brand").click(function() {
-		$.bootstrapGrowl('Sjebo si', {
-			type: 'danger',
-			delay: 3000,
-		});
-	});
-</script>
 
 <!-- automatska provjera emaila-->
 <script>
