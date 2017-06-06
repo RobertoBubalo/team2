@@ -59,6 +59,7 @@ if(isset($_POST['reg'])){
 			// slanje maila pomocu mail funkcije
 			mail($email,"$uname Account confirmation",$message,"From: noreply@exevio.com");
 			echo "Registration complete! Please activate your email.";
+			$_SESSION['forgot']='reg';
 		}
 		
 	}else{
@@ -91,14 +92,17 @@ if(isset($_POST['reg'])){
 		$id = $_SESSION["UserID"];	
 		$PWhash = password_hash($UpdatePW, PASSWORD_BCRYPT, array ('cost' => 10 ));
 		$sql = mysqli_query($conn, "UPDATE korisnik SET  sifra = '".$PWhash."' where id = '".$id."' ");
-		echo "uspjeh, nova sifra je  '".$UpdatePW."' ";
+		echo "uspjeh, nova sifra je  ".$UpdatePW." ";
+		$_SESSION['forgot']='testa';
 		// brisanje session varijable -- zaobilazni nacin updateanja vrijednosti varijable
 		unset($_SESSION['UserPW']);
 		// ubacivanje nove vrijednosti u prethodno izbrisanu varijablu
 		$_SESSION['UserPW'] = $PWhash;
 		 $_SESSION['ulogiran']='test';
+		
 		 
 		}else{
+			
 			echo "New password and Confirm new password are not the same";
 			// da ostane logged in jer nemam bolje rjesenje zasad
 			$result = mysqli_query($conn, "SELECT * FROM korisnik where email='".$id."' ");
@@ -159,18 +163,7 @@ $result = mysqli_query($conn, "SELECT * FROM korisnik where email='".$email."' "
 			
 			mail($email,"$uname Forgotten password",$message,"From: noreply@exevio.com");
 			echo "$uname password has been sent to your mail, $sentsifra";
-			?>
-		
-		<script type="text/javascript">
-	 function passReset(){
-		$.bootstrapGrowl('Password has been reseted and sent to your e-mail!', {
-			type: 'warning',
-			delay: 8000,
-		});
-	};
-	</script>
-		
-			<?
+			
 			
 		}else{
 			echo "neki fail";
@@ -258,28 +251,6 @@ return $Hash;
 
 <body>
 
-<div class="excontainer">
-    <button id="loadbasic">basic load</button>
-    <div id="result"></div>
- 
-</div>
-<script>
-$(function(){
-    // don't cache ajax or content won't be fresh
-    $.ajaxSetup ({
-        cache: false
-    });
-    var ajax_load = "<img src='http://i.imgur.com/XqGErUf.gif' alt='loading...' />";
-    
-    // load() functions
-    var loadUrl = "http://fiddle.jshell.net/dvb0wpLs/show/";
-    $("#loadbasic").click(function(){
-        $("#result").html(ajax_load).load(loadUrl);
-    });
-
-// end  
-});
-</script>
 
     <div id="page">
 
@@ -305,8 +276,30 @@ $(function(){
 	};
 	function popic2(){
 		$.bootstrapGrowl('Password has been reset, and sent to your mail!', {
-			type: 'success',
+			type: 'warning',
 			delay: 10000,
+		});
+	};
+	function popic3(){
+		$.bootstrapGrowl('Password has been succesfully updated!', {
+			type: 'danger',
+			delay: 10000,
+		});
+	};
+	function popic4(){
+		$.bootstrapGrowl('You have logged out', {
+			type: 'warning',
+			delay: 10000,
+		});
+	};
+	function popic5(){
+		$.bootstrapGrowl('You have created new account!', {
+			type: 'success',
+			delay: 15000,
+		});
+		$.bootstrapGrowl('Please go to your email to verify it', {
+			type: 'danger',
+			delay: 15000,
 		});
 	};
 	$(".navbar-brand").click(function() {
@@ -433,6 +426,7 @@ $(function(){
 
 		</script>
 		<?
+		
 	unset($_SESSION['ulogiran']);
 	}
 ?>
@@ -689,14 +683,38 @@ $(function(){
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<button type="submit" name="forgo" id="forgo" class="btn btn-primary">Log in</button>
 						<?php
-						if ($_SESSION['forgot']){
+						if ($_SESSION['forgot']=="test"){
 							?>
 							<script>
 						popic2();
 						</script>
 						
-						<?
+						<?php
 							
+							
+						}else if ($_SESSION['forgot']=="testa"){
+							?>
+							<script>
+						popic3();
+						</script>
+						
+						<?php
+							
+						}else if ($_SESSION['forgot']=="beta"){
+							?>
+							<script>
+						popic4();
+						</script>
+						
+						<?php
+							
+						}else if ($_SESSION['forgot']=="reg"){
+							?>
+							<script>
+						popic5();
+						</script>
+						
+						<?php
 							
 						}else{
 							
