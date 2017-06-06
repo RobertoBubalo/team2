@@ -1,4 +1,4 @@
-//quick print
+
 //delete today task, azurirati treba modal.. na remove zadatak
 
 brojObjekata=0;
@@ -66,7 +66,6 @@ function noviObjekt(){
         ispisModala();
     }
 }
-
 
 function ispis(tmpObjekt){
     
@@ -139,9 +138,6 @@ function ispis(tmpObjekt){
     
 }
     
-    
-
-
 function spremiULS(tmpObjekt){
     var str=JSON.stringify(tmpObjekt);
     localStorage.setItem(tmpObjekt.redniBroj-1, str);
@@ -164,16 +160,6 @@ function loadIzLS(){
     ispisModala();
     ispisBrojaca();
 }
-
-
-
-
-
-
-
-
-
-
 
 function removeZadatak(sender){
     var idZaRemove=sender.parentNode;
@@ -240,8 +226,6 @@ function izmjenaVrijednosti(sender){ //sprema se vrijednost u polje i u localsto
     
 }
 
-
-
 function ispisDatum(tmpObjekt){
     var inputDatum=document.createElement('input');
         inputDatum.setAttribute("type", "text");
@@ -258,8 +242,6 @@ function spremiNoviDatum(sender){
     ispisModala();
 }
 
-
-
 function ispisGeneral(){
     $( ".todoes" ).remove();
     activeDefColor();
@@ -272,10 +254,6 @@ function ispisGeneral(){
     }
       
 }
-
-
-
-
 
 function ispisPrivate(){
     $( ".todoes" ).remove();
@@ -290,7 +268,6 @@ function ispisPrivate(){
     
 }
 
-
 function ispisWork(){
     $( ".todoes" ).remove();
     activeDefColor();
@@ -303,7 +280,6 @@ function ispisWork(){
     
     
 }
-
 
 function ispisShopping(){
     $( ".todoes" ).remove();
@@ -348,27 +324,6 @@ function ispisChecked(){
     
 }
 
-
-
-
-//jquerry datum dropdown
-$( function() {
-    $( "#inputDatum" ).datepicker({dateFormat: 'dd/mm/yy'});
-    $(".inputDatumi").datepicker({
-        onClose: function(dateText,inst){
-           spremiNoviDatum(this); 
-        },
-        dateFormat: 'dd/mm/yy'
-        
-    });
-  } );
-
-document.getElementById('input').addEventListener("keydown",function (g){
-        if (g.keyCode===13){
-            noviObjekt();
-        }
-    });
-
 function brojacTodo(mapica,arhiva,chekirano,izbrisano){
     if(mapica=="General"&& arhiva==false&& chekirano==false){
         generalX++;
@@ -386,7 +341,6 @@ function brojacTodo(mapica,arhiva,chekirano,izbrisano){
     
 }
 
-
 function ispisBrojaca(){
     document.getElementById('general').innerHTML= generalX;
     document.getElementById('private').innerHTML=privateX;
@@ -396,7 +350,6 @@ function ispisBrojaca(){
     document.getElementById('checked').innerHTML=checkedX;
     
 }
-
 
 function activeDefColor(){
     document.getElementById('activeG').style.color="black";
@@ -440,9 +393,6 @@ function prikazArhive(tmpObjekt){
   } );
 }
 
-
-
-
 function ispisModala(){
     
     $( ".tModal" ).remove();
@@ -459,7 +409,6 @@ function ispisModala(){
     todayDate();
     
 }
-
 
 function ispisTodoUModalu(tmpObjekt){
     
@@ -514,19 +463,19 @@ function clearLS(){
     }
 }
 
-
 function printAll(){
     var content = "<html>";
-        content += "<br/>"+"General" + "<br/>";
+    content+="<b><center>Today tasks on "+todayDate()+"</b></center>";
+        content += "<br/>"+"<b>General</b>" + "<br/>";
             content=content.replace("undefined", "");
             content+=contentGeneral();
-        content += "<br/>"+"Private"+"<br/>";
+        content += "<br/>"+"<b>Private</b>"+"<br/>";
             content=content.replace("undefined", "");
             content+=contentPrivate();
-        content += "<br/>"+"Work" +"<br/>";
+        content += "<br/>"+"<b>Work</b>" +"<br/>";
             content=content.replace("undefined", "");
             content+=contentWork();
-        content +="<br/>"+ "Shopping"+ "<br/>";
+        content +="<br/>"+ "<b>Shopping</b>"+ "<br/>";
             content=content.replace("undefined", "");
             content+=contentShopping();
             content=content.replace("undefined", "");
@@ -593,3 +542,23 @@ function contentShopping(){
     
     return content;
 }
+
+
+
+//jquerry datum dropdown
+$( function() {
+    $( "#inputDatum" ).datepicker({dateFormat: 'dd/mm/yy'});
+    $(".inputDatumi").datepicker({
+        onClose: function(dateText,inst){
+           spremiNoviDatum(this); 
+        },
+        dateFormat: 'dd/mm/yy'
+        
+    });
+  } );
+
+document.getElementById('input').addEventListener("keydown",function (g){
+        if (g.keyCode===13){
+            noviObjekt();
+        }
+    });
