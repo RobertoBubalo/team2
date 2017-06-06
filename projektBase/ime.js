@@ -1,6 +1,5 @@
-//1.dodavanje clear all deleted... 
-//
-
+//quick print
+//delete today task, azurirati treba modal.. na remove zadatak
 
 brojObjekata=0;
 polje=[];
@@ -58,7 +57,7 @@ function noviObjekt(){
         
         polje[brojObjekata]=tmpObjekt;
         
-        brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje);
+        brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje,polje[brojObjekata].izbrisano);
         ispisBrojaca();
         
         brojObjekata++;
@@ -153,7 +152,7 @@ function loadIzLS(){
    for(var i=0;i<JSON.parse(localStorage.getItem("brojObjekata"));i++) {
        polje[i]=JSON.parse(localStorage.getItem(brojObjekata));
     
-       brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje);
+       brojacTodo(polje[brojObjekata].mapa, polje[brojObjekata].zaArhivu, polje[brojObjekata].stanje,polje[brojObjekata].izbrisano);
    
        
        if(polje[brojObjekata].mapa=="General"&&polje[brojObjekata].zaArhivu==false){
@@ -325,7 +324,7 @@ function ispisArhiva(){
     document.getElementById('activeA').style.color="blue";
     
     for(var i=0;i<brojObjekata;i++){
-        if(polje[i].zaArhivu==true){
+        if(polje[i].zaArhivu==true&&polje[i].izbrisano==false){
             prikazArhive(polje[i]);
         }
     }
@@ -370,7 +369,7 @@ document.getElementById('input').addEventListener("keydown",function (g){
         }
     });
 
-function brojacTodo(mapica,arhiva,chekirano){
+function brojacTodo(mapica,arhiva,chekirano,izbrisano){
     if(mapica=="General"&& arhiva==false&& chekirano==false){
         generalX++;
     }else if(mapica=="Private"&& arhiva==false&& chekirano==false){
@@ -379,7 +378,7 @@ function brojacTodo(mapica,arhiva,chekirano){
         workX++;
     }else if(mapica=="Shopping"&& arhiva==false&& chekirano==false){
         shoppingX++;
-    }else if((arhiva==true&& chekirano==false)||(arhiva==true&&chekirano==true)){
+    }else if(((arhiva==true&& chekirano==false)||(arhiva==true&&chekirano==true))&&izbrisano==false){
         archiveX++;
     }else if(arhiva==false&& chekirano==true){
         checkedX++;
@@ -505,6 +504,92 @@ function todayDate(){
 
 function clearLS(){
     for(var i=0;i<brojObjekata;i++){
-        //dodati instancu izbrisano u objekte, na klik se mjenjaju stanja i ne prikazuje se vise u aplikaciji
+        if(polje[i].zaArhivu==true&&polje[i].izbrisano==false){
+            polje[i].izbrisano=true;
+            archiveX--;
+            spremiULS(polje[i]);
+        }
+    ispisArhiva();
+    ispisBrojaca();
     }
+}
+
+
+function printAll(){
+    var content = "<html>";
+        content += "<br/>"+"General" + "<br/>";
+            content=content.replace("undefined", "");
+            content+=contentGeneral();
+        content += "<br/>"+"Private"+"<br/>";
+            content=content.replace("undefined", "");
+            content+=contentPrivate();
+        content += "<br/>"+"Work" +"<br/>";
+            content=content.replace("undefined", "");
+            content+=contentWork();
+        content +="<br/>"+ "Shopping"+ "<br/>";
+            content=content.replace("undefined", "");
+            content+=contentShopping();
+            content=content.replace("undefined", "");
+    content += "</body>";
+    content += "</html>";
+
+    var printWin = window.open('','','left=0,top=0,width=552,height=477,toolbar=0,scrollbars=0,status =0');
+    printWin.document.write(content);
+    printWin.document.close();
+    printWin.focus();
+    printWin.print();
+    printWin.close();
+}
+
+function contentGeneral(){
+    var content;
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].stanje==false&&polje[i].zaArhivu==false&&polje[i].mapa=="General"){
+            content+=polje[i].opis+ "   " ;
+            if(polje[i].dueDate!=undefined){
+                content+=polje[i].dueDate+ "   " + "<br/>";
+            }
+        }
+    }
+    
+    return content;
+}
+function contentPrivate(){
+    var content;
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].stanje==false&&polje[i].zaArhivu==false&&polje[i].mapa=="Private"){
+            content+=polje[i].opis+ "   " ;
+            if(polje[i].dueDate!=undefined){
+                content+=polje[i].dueDate+ "   " + "<br/>";
+            }
+        }
+    }
+    
+    return content;
+}
+function contentWork(){
+    var content;
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].stanje==false&&polje[i].zaArhivu==false&&polje[i].mapa=="Work"){
+            content+=polje[i].opis+ "   " ;
+            if(polje[i].dueDate!=undefined){
+                content+=polje[i].dueDate+ "   " + "<br/>";
+            }
+        }
+    }
+    
+    return content;
+}
+function contentShopping(){
+    var content;
+    for(var i=0;i<brojObjekata;i++){
+        if(polje[i].stanje==false&&polje[i].zaArhivu==false&&polje[i].mapa=="Shopping"){
+            content+=polje[i].opis+ "   " ;
+            if(polje[i].dueDate!=undefined){
+                content+=polje[i].dueDate+ "   " + "<br/>";
+            }
+        }
+    }
+    
+    return content;
 }
