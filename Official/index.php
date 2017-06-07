@@ -262,7 +262,7 @@ return $Hash;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
                  </button>
-                    <a class="navbar-brand" href="#">JustDoIT</a>
+                    <a class="navbar-brand" href="main/index.html">JustDoIT</a>
                 </div>
 					
 	<!--notifikacija-->
@@ -302,19 +302,7 @@ return $Hash;
 			delay: 15000,
 		});
 	};
-	$(".navbar-brand").click(function() {
-		$.bootstrapGrowl('You are a genius.', {
-			type: 'success',
-			delay: 3000,
-		});
-	});
-
-	$(".navbar-brand").click(function() {
-		$.bootstrapGrowl('Sjebo si', {
-			type: 'danger',
-			delay: 3000,
-		});
-	});
+	
 </script>
 
 				
@@ -322,7 +310,7 @@ return $Hash;
                     <ul class="nav navbar-nav navbar-left">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">About</a></li>
-                        <li><a href="testing/index.html">To-Do</a></li>
+                        <li><a href="main/index.html">To-Do</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" data-toggle="modal" id="t1" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
@@ -506,9 +494,9 @@ return $Hash;
                             <div class="input-group pb-modalreglog-input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                                 <input type="password" required="required" class="form-control" name="pws" id="pws" placeholder="Password">
-								<!-- working show / hide password 
+								<!-- working show / hide password -->
 								<button type="button" id="eye" onclick="if(pws.type=='text')pws.type='password'; else pws.type='text';"> toggle </button>
-								-->
+								
 								<span style="width:0%" id="password_show_button" class="input-group-addon"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
 								<!--			WORKING rjesenje 2.0 --- biraj sta ti vise odgovara gogi
 								
@@ -715,7 +703,7 @@ return $Hash;
 						<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
 						Google</a></div>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="submit" name="forgo" id="forgo" class="btn btn-primary">Log in</button>
+						<button type="submit" name="forgo" id="forgo" class="btn btn-primary">Submit</button>
 						<?php
 						if ($_SESSION['forgot']=="test"){
 							?>
@@ -1128,13 +1116,7 @@ function checkAvailability() {
    }(document, 'script', 'facebook-jssdk'));
 </script>
 	
-	<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
-<div id="fb-root"></div>
+	
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -1142,9 +1124,7 @@ function checkAvailability() {
   js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=665616430302213";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true"></div>
-	
-	<p><a href="#" onClick="logInWithFacebook()">Log In with the JavaScript SDK</a></p>
+
 
 <script>
   logInWithFacebook = function() {
