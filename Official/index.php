@@ -43,7 +43,7 @@ if(isset($_POST['reg'])){
 			//poruka koju saljemo na mail
 			$message = "
 			Account activation - 
-			username = $uname; password = $sifra
+			Please dear, $uname
 			Click the link below to verify your account
 			http://www.todolista.esy.es/emailconfirm.php?email=$email&username=$uname&code=$confirmcode
 			";
@@ -1160,6 +1160,13 @@ function checkAvailability() {
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 </script>
+<div			
+  class="fb-like"		
+  data-share="true"		
+  data-width="450"		
+  data-show-faces="true">		
+</div>		
+<div id="fb-root"></div>
 </body>
 
 </html>

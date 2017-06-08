@@ -43,7 +43,7 @@ if(isset($_POST['reg'])){
 			//poruka koju saljemo na mail
 			$message = "
 			Account activation - 
-			username = $uname; password = $sifra
+			Please dear, $uname
 			Click the link below to verify your account
 			http://www.todolista.esy.es/emailconfirm.php?email=$email&username=$uname&code=$confirmcode
 			";
@@ -235,7 +235,7 @@ return $Hash;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
                  </button>
-                    <a class="navbar-brand" href="main/index.html">JustDoIT</a>
+                    <a class="navbar-brand" href="testing/index.html">JustDoIT</a>
                 </div>
 					
 	<!--notifikacija-->
@@ -290,7 +290,7 @@ return $Hash;
                     <ul class="nav navbar-nav navbar-left">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">About</a></li>
-                        <li><a href="main/index.html">To-Do</a></li>
+                        <li><a href="testing/index.html">To-Do</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" data-toggle="modal" id="t1" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
