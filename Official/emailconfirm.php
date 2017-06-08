@@ -30,7 +30,7 @@ $result = mysqli_query($conn, "SELECT * FROM korisnik where email='".$email."' "
 
 	//	$_SESSION['ulogiran']='true';  		ne funkcionira iz nekog razloga
 		
-		$link_address = 'http://todolista.esy.es/';
+		$link_address = 'http://justdoitlist.com/';
 		
 		echo "<br><a href='".$link_address."'>Homepage</a>";
 ?>

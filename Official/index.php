@@ -2,18 +2,9 @@
 <?php
 session_start();
 
-/*
-
- I have found the way!!! bauahahahahahah $_SESSIONs are the key
-
-$ime = "alen";
-echo "$ime je glup";*/
-
 // google client id 	1082983336226-ph2q77qr0crnhgijo1sa9ib5efijsl2h.apps.googleusercontent.com
 // google client secret 	j6EK8cNcaeanb2vgr4_7BTo-
 
-// isset - Returns TRUE if var exists and has value other than NULL. FALSE otherwise.
-//	$_POST -  is used to collect form-data.
 
 if(isset($_POST['reg'])){
 	
@@ -92,7 +83,7 @@ if(isset($_POST['reg'])){
 		$id = $_SESSION["UserID"];	
 		$PWhash = password_hash($UpdatePW, PASSWORD_BCRYPT, array ('cost' => 10 ));
 		$sql = mysqli_query($conn, "UPDATE korisnik SET  sifra = '".$PWhash."' where id = '".$id."' ");
-		echo "uspjeh, nova sifra je  ".$UpdatePW." ";
+		//echo "uspjeh, nova sifra je  ".$UpdatePW." ";
 		$_SESSION['forgot']='testa';
 		// brisanje session varijable -- zaobilazni nacin updateanja vrijednosti varijable
 		unset($_SESSION['UserPW']);
@@ -115,22 +106,7 @@ if(isset($_POST['reg'])){
   }
 	
 ?>
-
-
-<?php
-session_start();
-/*
-if submit forgot pass
-post mail
-check mail in DB
-update pass
-send mail
-
-
-$sifra = rand();
-$prvi = password_hash($sifra, PASSWORD_BCRYPT, array ('cost' => 2 ));
-$sentsifra = substr('$prvi', 3, 10);
-$PWhash = password_hash($sentsifra, PASSWORD_BCRYPT, array ('cost' => 2 )); */
+ <?php
 if(isset($_POST['forgo'])){
 	
 $email = $_POST['email3'];
@@ -152,7 +128,7 @@ $result = mysqli_query($conn, "SELECT * FROM korisnik where email='".$email."' "
 		
 		if ( $id )
 		{
-			$_SESSION['forgot'] = 'test';
+			$_SESSION['forgot']='test';
 			
 			$sentsifra = substr(GeraHash($id), 5, 10);
 			$PWhash = password_hash($sentsifra, PASSWORD_BCRYPT, array ('cost' => 6 ));
@@ -162,11 +138,10 @@ $result = mysqli_query($conn, "SELECT * FROM korisnik where email='".$email."' "
 			$message = "Your new password is  $sentsifra";
 			
 			mail($email,"$uname Forgotten password",$message,"From: noreply@exevio.com");
-			echo "$uname password has been sent to your mail, $sentsifra";
-			
+			//echo "$uname password has been sent to your mail, $sentsifra";
 			
 		}else{
-			echo "neki fail";
+			//echo "neki fail";
 			
 		}
 		
@@ -190,11 +165,9 @@ $Hash=NULL;
     for($x=1;$x<=$qtd;$x++){ 
         $Posicao = rand(0,$QuantidadeCaracteres); 
         $Hash .= substr($Caracteres,$Posicao,1); 
-    } 
-
+    }
 return $Hash; 
 } 
-
 //Here you specify how many characters the returning string must have 
 //echo GeraHash(10); 
 ?>
@@ -292,6 +265,12 @@ return $Hash;
 			delay: 10000,
 		});
 	};
+	function popicAktiv(){
+		$.bootstrapGrowl('Account has not been activated yet! Please go to your mail for activation link.', {
+			type: 'warning',
+			delay: 10000,
+		});
+	};
 	function popic5(){
 		$.bootstrapGrowl('You have created new account!', {
 			type: 'success',
@@ -302,6 +281,7 @@ return $Hash;
 			delay: 15000,
 		});
 	};
+
 	
 </script>
 
@@ -370,7 +350,8 @@ return $Hash;
 		</script>
 		<?
 			}else{
-				echo "Account has not been activated yet! Please go to your mail for activation link.";
+				$_SESSION['forgot']='aktiv';
+				//echo "Account has not been activated yet! Please go to your mail for activation link.";
 				}
 			
 		}else{
@@ -407,7 +388,7 @@ return $Hash;
 
 		</script>
 		<?
-		
+		$_SESSION['forgot']='testa';
 	unset($_SESSION['ulogiran']);
 	}
 ?>
@@ -447,11 +428,12 @@ return $Hash;
                             </div>
                         </div>
 						<div class="form-group">
-                            <label for="password">New Password</label>
+                            <label for="password">Confirm New Password</label>
                             <div class="input-group pb-modalreglog-input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                                 <input type="password" class="form-control" name="newPassword2" id="newPassword2" placeholder="Confirm New Password" pattern=".{8,20}" required title="8 to 20 characters" >
                             </div>
+							<span id="verifynote2" class="hidden" > Passwords do not match</span>
                         </div>
                    
 				</div>
@@ -464,6 +446,21 @@ return $Hash;
             </div>
         </div>
     </div>
+	<!-- provjera passworda -->
+										<script type="text/javascript">
+								$(document).ready(function() {
+									$('#newPassword2').keyup(function() {
+										if( $(this).val() == $('#newPassword').val()){
+											$('#verifynote2').addClass('hidden');
+										}else{
+											$('#verifynote2').removeClass('hidden');
+										}
+									
+									});
+								
+								});
+								
+								</script>
 
 
 
@@ -540,7 +537,7 @@ return $Hash;
 						
 						
 						<div class="form-group">
-                                    <a data-toggle="modal" data-target="#myModal5" data-dismiss="modal"> Forgotten account? </a>
+                                    <a data-toggle="modal" data-target="#myModal5" data-dismiss="modal"> Forgot your password? </a>
                                 </div>
 								 <div class="form-group">
                                   <a data-toggle="modal" data-target="#myModal2" data-dismiss="modal"> Don't have an account yet? Register here</a>
@@ -550,8 +547,8 @@ return $Hash;
 				</div>
 					<div class="modal-footer">
 					<div style="float:left">
-						<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
-						Google</a></div>
+						<!--<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
+						Google</a> --></div>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<button type="submit" name="Login" id="Login" class="btn btn-primary">Log in</button>
 						
@@ -585,15 +582,15 @@ return $Hash;
 								<input type="email" name="inputEmail" id="inputEmail" class="form-control" onBlur="checkAvailability()" placeholder="Email" 
 								pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required="required" title="Incorret e-mail format, 'example@yahoo.com' "> 
                             </div>
-							<p><img src="ikona.gif" id="loaderIcon" style="display:none"  <!-- animacija    -->
-							<span id="user-availability-status"></span>   
+							<p><img src="ikona.gif" id="loaderIcon" style="display:none"  <!-- animacija   treba namjestit na sredinu  -->
+							<span id="user-availability-status"></span>   <!-- text optinal na sredinu -->
 
                         </div>
                         <div class="form-group">
-                            <label for="username">Username</label>
+                            <label for="username">Nickname</label>
                             <div class="input-group pb-modalreglog-input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                <input type="text" class="form-control"  name="username" id="username" placeholder="Username" pattern="^[a-zA-Z0-9-_\.]{5,20}$" type="text" required="required" 
+                                <input type="text" class="form-control"  name="username" id="username" placeholder="Nickname" pattern="^[a-zA-Z0-9-_\.]{5,20}$" type="text" required="required" 
 								title="Minimum 5 characters. Only numbers and letters">
                             </div>
                         </div>
@@ -618,7 +615,7 @@ return $Hash;
                                 <input type="checkbox" id="ch" required name="ch"> I'm not a robot.
                             </div>
 							<div class="form-group">
-                                    <a data-toggle="modal" data-target="#myModal5" data-dismiss="modal"> Forgotten account?</a>
+                                    <a data-toggle="modal" data-target="#myModal5" data-dismiss="modal"> Forgot your password? </a>
                                 </div>
                            
 								<div class="form-group">
@@ -646,8 +643,8 @@ return $Hash;
 
                         <div class="modal-footer">
                             <div style="float:left">
-								<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
-								Google</a></div>
+								<!--<div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
+								Google</a>--></div> 
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" name="reg" id="reg" class="btn btn-primary">Sign up</button>
                         </div>
@@ -734,6 +731,14 @@ return $Hash;
 							?>
 							<script>
 						popic5();
+						</script>
+						
+						<?php
+							
+						}else if ($_SESSION['forgot']=="aktiv"){
+							?>
+							<script>
+						popicAktiv();
 						</script>
 						
 						<?php
@@ -877,7 +882,7 @@ return $Hash;
                         <h2>Get started it's free</h2>
                     </div>
                     <div class="cold-sm-5 text-center botuni">
-                       <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
+                     <!--  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div> -->
 
                         <button class="loginBtn google">Login with Google
                         </button>
