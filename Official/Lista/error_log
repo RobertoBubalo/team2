@@ -1,0 +1,4 @@
+[12-Jun-2017 15:42:36 UTC] PHP Warning:  require(config.php): failed to open stream: No such file or directory in /home/justdoitlist/public_html/list/index.php on line 1
+[12-Jun-2017 15:42:36 UTC] PHP Warning:  require(config.php): failed to open stream: No such file or directory in /home/justdoitlist/public_html/list/index.php on line 1
+[12-Jun-2017 15:42:36 UTC] PHP Fatal error:  require(): Failed opening required 'config.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/justdoitlist/public_html/list/index.php on line 1
+[12-Jun-2017 15:44:07 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/justdoitlist/public_html/list/index.php:3) in /home/justdoitlist/public_html/list/index.php on line 3
